@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.LanguageFragment">
+    <TextView
+        android:id="@+id/tv_language_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/language_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_language_label">
+
+        <RadioGroup
+            android:id="@+id/rg_language_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_language_label">
+
+            <RadioButton
+                android:id="@+id/rb_arabic"
+                android:checked="true"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/arabic" />
+
+            <RadioButton
+                android:id="@+id/rb_english"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/english" />
+
+            <RadioButton
+                android:id="@+id/rb_french"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/french" />
+
+            <RadioButton
+                android:id="@+id/rb_russian"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/russian" />
+
+            <RadioButton
+                android:id="@+id/rb_german"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/german" />
+
+            <RadioButton
+                android:id="@+id/rb_spanish"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/spanish" />
+
+            <RadioButton
+                android:id="@+id/rb_turkish"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/turkish" />
+
+            <RadioButton
+                android:id="@+id/rb_chinese"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/chinese" />
+
+            <RadioButton
+                android:id="@+id/rb_thai"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/thai" />
+
+            <RadioButton
+                android:id="@+id/rb_urdu"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/urdu" />
+
+            <RadioButton
+                android:id="@+id/rb_bengali"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/bengali" />
+
+            <RadioButton
+                android:id="@+id/rb_bosnian"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/bosnian" />
+
+            <RadioButton
+                android:id="@+id/rb_indonesian"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/indonesian" />
+
+            <RadioButton
+                android:id="@+id/rb_portuguese"
+                style="@style/LanguageRadioButtonStyle"
+                android:text="@string/portuguese" />
+
+
+        </RadioGroup>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
