@@ -1,4 +1,4 @@
-package com.andalus.abomed7at55.quranplayer.Utils;
+package com.andalus.abomed7at55.quranplayer.Networking;
 
 import android.app.Activity;
 import android.app.DownloadManager;
