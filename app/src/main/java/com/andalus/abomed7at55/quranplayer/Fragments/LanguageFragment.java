@@ -18,14 +18,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LanguageFragment extends Fragment {
+
+    private static final String DEFAULT_LANGUAGE = "_arabic";
+
     @BindView(R.id.rg_language_selection)
     RadioGroup rgLanguages;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_language,container,false);
         ButterKnife.bind(this,view);
-        String language = PreferenceManager.getDefaultSharedPreferences(view.getContext()).getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,null);
+        String language = PreferenceManager.getDefaultSharedPreferences(view.getContext()).getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,DEFAULT_LANGUAGE);
         rgLanguages.check(LanguageStorage.getRadioButtonId(language));
         return view;
     }

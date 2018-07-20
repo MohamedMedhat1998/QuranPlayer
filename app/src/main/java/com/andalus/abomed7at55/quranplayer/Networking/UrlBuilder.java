@@ -18,4 +18,17 @@ public class UrlBuilder {
     public static String buildSurasNamesUrl(String language){
         return "https://mp3quran.net/api/"+language+"_sura.json";
     }
+
+    public static String buildStreamingUrl(String server,int suraId){
+        String id = suraId+"";
+        String leadingZeros;
+        if(suraId>100){
+            leadingZeros = "";
+        }else if(suraId>10){
+            leadingZeros = "0";
+        }else{
+            leadingZeros = "00";
+        }
+        return server+"/"+leadingZeros+id+".mp3";
+    }
 }

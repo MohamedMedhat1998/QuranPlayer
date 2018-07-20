@@ -1,30 +1,37 @@
 package com.andalus.abomed7at55.quranplayer.Objects;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Sheekh {
     private String mName;
     private String mServer;
     private String mRewaya;
     private int mCount;
-    private String mSuras;
-    private int mSurasIds[];
+    private ArrayList<Integer> mSurasIds;
+    private long mId;
 
-    public Sheekh(String name, String server, String rewaya, int count, String suras) {
+    public Sheekh(long id,String name, String server, String rewaya, int count, String suras) {
+        mId = id;
         mName = name;
         mServer = server;
         mRewaya = rewaya;
         mCount = count;
-        mSuras = suras;
-        mSurasIds = convertSurasString(mSuras);
+        mSurasIds = new ArrayList<>(Arrays.asList(convertSurasString(suras)));
     }
 
-    private int[] convertSurasString(String suras){
+    private Integer[] convertSurasString(String suras){
         String surasArray[] = suras.split(",");
         int x = surasArray.length;
-        int[] arr = new int[x];
+        Integer[] arr = new Integer[x];
         for(int i = 0; i < x ; i++){
             arr[i] = Integer.parseInt(surasArray[i]);
         }
         return arr;
+    }
+
+    public long getId(){
+        return mId;
     }
 
     public String getName() {
@@ -43,7 +50,7 @@ public class Sheekh {
         return mCount;
     }
 
-    public int[] getSurasIds() {
+    public ArrayList<Integer> getSurasIds() {
         return mSurasIds;
     }
 }
