@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andalus.abomed7at55.quranplayer.Interfaces.SheekhItemClickListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.R;
 
@@ -18,9 +19,10 @@ import butterknife.ButterKnife;
 public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.SheekhItemHolder>{
 
     private ArrayList<Sheekh> mData;
-
-    public SheekhListAdapter(ArrayList<Sheekh> data){
+    private SheekhItemClickListener mSheekhItemClickListener;
+    public SheekhListAdapter(ArrayList<Sheekh> data , SheekhItemClickListener sheekhItemClickListener){
         mData = data;
+        mSheekhItemClickListener = sheekhItemClickListener;
     }
 
     @NonNull
@@ -53,9 +55,15 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
         @BindView(R.id.tv_sura_count)
         TextView tvSuraCount;
 
-        public SheekhItemHolder(View itemView) {
+        SheekhItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSheekhItemClickListener.onSheekhItemClicked(mData.get(getAdapterPosition()).getSurasIds(),mData.get(getAdapterPosition()).getServer());
+                }
+            });
         }
     }
 }

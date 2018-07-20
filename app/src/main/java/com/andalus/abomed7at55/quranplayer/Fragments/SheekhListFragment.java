@@ -1,5 +1,6 @@
 package com.andalus.abomed7at55.quranplayer.Fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,9 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.SheekhListAdapter;
+import com.andalus.abomed7at55.quranplayer.Interfaces.SheekhItemClickListener;
+import com.andalus.abomed7at55.quranplayer.MainActivity;
 import com.andalus.abomed7at55.quranplayer.Networking.UrlBuilder;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
+import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.R;
+import com.andalus.abomed7at55.quranplayer.SurasListActivity;
 import com.andalus.abomed7at55.quranplayer.Utils.JsonParser;
 import com.andalus.abomed7at55.quranplayer.Utils.LanguageStorage;
 import com.andalus.abomed7at55.quranplayer.Utils.MyLoader;
@@ -29,7 +34,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,SheekhItemClickListener {
 
     private static final int ID = 5;
 
@@ -57,7 +62,7 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
         rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         try {
             ArrayList<Sheekh> sheekhArrayList = JsonParser.parseSheekhs(data);
-            rvSheekhList.setAdapter(new SheekhListAdapter(sheekhArrayList));
+            rvSheekhList.setAdapter(new SheekhListAdapter(sheekhArrayList,this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,5 +71,14 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+
+
+    @Override
+    public void onSheekhItemClicked(ArrayList<Integer> ids, String streamingServer) {
+        Intent i = new Intent(getActivity(), SurasListActivity.class);
+        i.putExtra(Sura.IDS_KEY,ids);
+        i.putExtra(Sura.STREAMING_SERVER_ROOT_KEY,streamingServer);
+        startActivity(i);
     }
 }

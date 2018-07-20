@@ -5,6 +5,10 @@ public class Sura {
     private String mName;
     private String mServer;
 
+    public static final String IDS_KEY = "ids";
+    public static final String STREAMING_SERVER_ROOT_KEY = "root_server";
+
+
     public Sura(int id, String name, String server){
         mId = id;
         mName = name;
