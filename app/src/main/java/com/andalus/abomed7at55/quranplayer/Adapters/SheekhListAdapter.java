@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andalus.abomed7at55.quranplayer.Interfaces.SheekhItemClickListener;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnSheekhItemClickListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.R;
 
@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
 public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.SheekhItemHolder>{
 
     private ArrayList<Sheekh> mData;
-    private SheekhItemClickListener mSheekhItemClickListener;
-    public SheekhListAdapter(ArrayList<Sheekh> data , SheekhItemClickListener sheekhItemClickListener){
+    private OnSheekhItemClickListener mSheekhItemClickListener;
+    public SheekhListAdapter(ArrayList<Sheekh> data , OnSheekhItemClickListener sheekhItemClickListener){
         mData = data;
         mSheekhItemClickListener = sheekhItemClickListener;
     }
@@ -38,7 +38,6 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
         holder.tvSheekhName.setText(mData.get(position).getName());
         holder.tvRewaya.setText(mData.get(position).getRewaya());
         holder.tvSuraCount.setText(mData.get(position).getCount()+"");
-        //TODO handle onClick here and use tags maybe
     }
 
     @Override

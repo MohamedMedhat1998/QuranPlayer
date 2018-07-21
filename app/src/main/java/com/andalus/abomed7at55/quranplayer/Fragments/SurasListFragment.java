@@ -1,6 +1,7 @@
-package com.andalus.abomed7at55.quranplayer;
+package com.andalus.abomed7at55.quranplayer.Fragments;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,8 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.SurasListAdapter;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.Networking.UrlBuilder;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
+import com.andalus.abomed7at55.quranplayer.PlayerActivity;
+import com.andalus.abomed7at55.quranplayer.R;
 import com.andalus.abomed7at55.quranplayer.Utils.JsonParser;
 import com.andalus.abomed7at55.quranplayer.Utils.LanguageStorage;
 import com.andalus.abomed7at55.quranplayer.Utils.MyLoader;
@@ -29,7 +33,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SurasListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+public class SurasListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,OnSuraClickListener {
 
     private static final int ID = 10;
 
@@ -62,7 +66,7 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             mStreamingServerRoot = getArguments().getString(Sura.STREAMING_SERVER_ROOT_KEY);
             ArrayList<Sura> suraArrayList = JsonParser.parseSura(data,mSurasIds,mStreamingServerRoot);
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rvSurasList.setAdapter(new SurasListAdapter(suraArrayList));
+            rvSurasList.setAdapter(new SurasListAdapter(suraArrayList,this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,5 +75,12 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+
+    @Override
+    public void onSuraClick(String streamingUrl) {
+        Intent i = new Intent(getActivity(), PlayerActivity.class);
+        i.putExtra(Sura.STREAMING_SERVER_KEY,streamingUrl);
+        startActivity(i);
     }
 }

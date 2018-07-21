@@ -16,8 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.SheekhListAdapter;
-import com.andalus.abomed7at55.quranplayer.Interfaces.SheekhItemClickListener;
-import com.andalus.abomed7at55.quranplayer.MainActivity;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnSheekhItemClickListener;
 import com.andalus.abomed7at55.quranplayer.Networking.UrlBuilder;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,SheekhItemClickListener {
+public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,OnSheekhItemClickListener {
 
     private static final int ID = 5;
 

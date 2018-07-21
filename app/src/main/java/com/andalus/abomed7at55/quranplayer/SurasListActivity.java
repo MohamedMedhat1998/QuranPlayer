@@ -3,6 +3,7 @@ package com.andalus.abomed7at55.quranplayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.andalus.abomed7at55.quranplayer.Fragments.SurasListFragment;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
 public class SurasListActivity extends AppCompatActivity {

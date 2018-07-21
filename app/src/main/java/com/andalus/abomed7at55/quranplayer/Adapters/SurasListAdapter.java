@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.R;
 
@@ -18,9 +19,11 @@ import butterknife.ButterKnife;
 public class SurasListAdapter extends RecyclerView.Adapter<SurasListAdapter.SuraItemHolder> {
 
     private ArrayList<Sura> mData;
+    private OnSuraClickListener mOnSuraClickListener;
 
-    public SurasListAdapter(ArrayList<Sura> data){
+    public SurasListAdapter(ArrayList<Sura> data,OnSuraClickListener onSuraClickListener){
         mData = data;
+        mOnSuraClickListener = onSuraClickListener;
     }
 
     @NonNull
@@ -50,6 +53,12 @@ public class SurasListAdapter extends RecyclerView.Adapter<SurasListAdapter.Sura
         SuraItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnSuraClickListener.onSuraClick(mData.get(getAdapterPosition()).getServer());
+                }
+            });
         }
     }
 }

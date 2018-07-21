@@ -7,6 +7,7 @@ public class Sura {
 
     public static final String IDS_KEY = "ids";
     public static final String STREAMING_SERVER_ROOT_KEY = "root_server";
+    public static final String STREAMING_SERVER_KEY = "streaming_server";
 
 
     public Sura(int id, String name, String server){
