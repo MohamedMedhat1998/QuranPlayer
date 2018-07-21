@@ -4,15 +4,27 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.VideoView;
+import android.view.MotionEvent;
+import android.widget.MediaController;
 
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
-public class PlayerActivity extends AppCompatActivity {
+import java.io.IOException;
+//TODO Optimise and support savedInstantState
+public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener,
+        MediaController.MediaPlayerControl{
 
-    MediaPlayer mediaPlayer;
+    private static final int LOADER_ID = 20;
+
+    private static final String TAG = "AudioPlayer";
+
+    private MediaPlayer mMediaPlayer;
+    private MediaController mMediaController;
+
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +35,97 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void startStreaming(){
-        VideoView videoView = new VideoView(this);
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setOnPreparedListener(this);
+        mMediaController = new MediaController(this);
         new Player().execute(getIntent().getExtras().getString(Sura.STREAMING_SERVER_KEY));
     }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        /*mMediaController.hide();
+        mMediaPlayer.stop();
+        mMediaPlayer.release();*/
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mMediaController.show();
+        return false;
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        Log.d(TAG, "onPrepared");
+        mMediaController.setMediaPlayer(this);
+        mMediaController.setAnchorView(findViewById(R.id.tv_anchor_view));
+
+        handler.post(new Runnable() {
+            public void run() {
+                mMediaController.setEnabled(true);
+                mMediaController.show();
+            }
+        });
+    }
+
+    @Override
+    public void start() {
+        mMediaPlayer.start();
+    }
+
+    @Override
+    public void pause() {
+        mMediaPlayer.pause();
+    }
+
+    @Override
+    public int getDuration() {
+        return mMediaPlayer.getDuration();
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return mMediaPlayer.getCurrentPosition();
+    }
+
+    @Override
+    public void seekTo(int i) {
+        mMediaPlayer.seekTo(i);
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return mMediaPlayer.isPlaying();
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return true;
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        return 0;
+    }
+
 
     class Player extends AsyncTask<String, Void, Boolean> {
         @Override
@@ -35,8 +133,8 @@ public class PlayerActivity extends AppCompatActivity {
             Boolean prepared;
 
             try {
-                mediaPlayer.setDataSource(strings[0]);
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                mMediaPlayer.setDataSource(strings[0]);
+                mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         mediaPlayer.stop();
@@ -44,7 +142,7 @@ public class PlayerActivity extends AppCompatActivity {
                     }
                 });
 
-                mediaPlayer.prepare();
+                mMediaPlayer.prepare();
                 prepared = true;
 
             } catch (Exception e) {
@@ -58,7 +156,7 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-            mediaPlayer.start();
+            mMediaPlayer.start();
         }
     }
 }
