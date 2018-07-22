@@ -1,16 +1,23 @@
 package com.andalus.abomed7at55.quranplayer;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.MediaController;
+import android.widget.Toast;
 
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
+import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
 
 import java.io.IOException;
 //TODO Optimise and support savedInstantState
@@ -23,6 +30,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnP
 
     private MediaPlayer mMediaPlayer;
     private MediaController mMediaController;
+    private PlayerService mPlayerService;
 
     private Handler handler = new Handler();
 
@@ -42,10 +50,31 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnP
         new Player().execute(getIntent().getExtras().getString(Sura.STREAMING_SERVER_KEY));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent i = new Intent(PlayerActivity.this, PlayerService.class);
+        bindService(i,mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
+            mPlayerService = binder.getPlayerService();
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
 
     @Override
     protected void onStop() {
         super.onStop();
+        unbindService(mServiceConnection);
         /*mMediaController.hide();
         mMediaPlayer.stop();
         mMediaPlayer.release();*/
@@ -74,6 +103,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnP
     @Override
     public void start() {
         mMediaPlayer.start();
+        mPlayerService.playMedia();
     }
 
     @Override
