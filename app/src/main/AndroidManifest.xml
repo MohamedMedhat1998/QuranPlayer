@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SurasListActivity" />
-        <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".PlayerActivity" >
+
+        </activity>
 
         <service android:name=".Utils.PlayerService" />
     </application>

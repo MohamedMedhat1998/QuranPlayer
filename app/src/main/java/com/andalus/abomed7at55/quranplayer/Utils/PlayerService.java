@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
@@ -18,7 +16,6 @@ public class PlayerService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
 
-    private static String mStreamingServer;
     private MediaPlayer mMediaPlayer;
 
 
@@ -32,9 +29,10 @@ public class PlayerService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        MyFlags.setIsFirstPlayerRun(true);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
+        String mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
         try {
             mMediaPlayer.setDataSource(mStreamingServer);
         } catch (IOException e) {
@@ -50,7 +48,6 @@ public class PlayerService extends Service {
 
         try {
             mMediaPlayer.prepare();
-            mMediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,6 +68,23 @@ public class PlayerService extends Service {
 
     public void backMedia(){
         mMediaPlayer.seekTo(mMediaPlayer.getCurrentPosition()-2000);
+    }
+
+    public void resetMedia(){
+        mMediaPlayer.stop();
+        mMediaPlayer.reset();
+    }
+
+    public int getProgress(){
+        return mMediaPlayer.getCurrentPosition();
+    }
+
+    public int getDuration(){
+        return mMediaPlayer.getDuration();
+    }
+
+    public boolean isPlaying(){
+        return mMediaPlayer.isPlaying();
     }
 
 }
