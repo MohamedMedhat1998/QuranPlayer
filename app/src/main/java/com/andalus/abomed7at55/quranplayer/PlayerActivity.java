@@ -182,13 +182,12 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     public void onAudioCompletion() {
-        handler.removeCallbacks(runnable);
+        try {
+            handler.removeCallbacks(runnable);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

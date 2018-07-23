@@ -50,13 +50,14 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         mOnAudioCompletionListener.onAudioCompletion();
         mMediaPlayer.stop();
         try {
-            mediaPlayer.prepare();
-        } catch (IOException e) {
+            mMediaPlayer.prepare();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void playMedia(){
+
         mMediaPlayer.start();
     }
 
