@@ -8,15 +8,17 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
 import java.io.IOException;
 
-public class PlayerService extends Service {
+public class PlayerService extends Service implements MediaPlayer.OnCompletionListener {
 
     private final IBinder mBinder = new LocalBinder();
 
     private MediaPlayer mMediaPlayer;
+    private OnAudioCompletionListener mOnAudioCompletionListener;
 
 
     public class LocalBinder extends Binder{
@@ -31,27 +33,27 @@ public class PlayerService extends Service {
     public IBinder onBind(Intent intent) {
         MyFlags.setIsFirstPlayerRun(true);
         mMediaPlayer = new MediaPlayer();
+        mMediaPlayer.setOnCompletionListener(this);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         String mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
         try {
             mMediaPlayer.setDataSource(mStreamingServer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
-            }
-        });
-
-        try {
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return mBinder;
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        mOnAudioCompletionListener.onAudioCompletion();
+        mMediaPlayer.stop();
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void playMedia(){
@@ -83,8 +85,8 @@ public class PlayerService extends Service {
         return mMediaPlayer.getDuration();
     }
 
-    public boolean isPlaying(){
-        return mMediaPlayer.isPlaying();
+    public void setOnAudioCompletionListener(OnAudioCompletionListener onAudioCompletionListener){
+        mOnAudioCompletionListener = onAudioCompletionListener;
     }
 
 }

@@ -14,7 +14,9 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.MyFlags;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //TODO Optimise and support savedInstantState
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener {
 
     private static final int LOADER_ID = 20;
 
@@ -36,6 +38,10 @@ public class PlayerActivity extends AppCompatActivity {
     private static final String TAG = "AudioPlayer";
 
     private PlayerService mPlayerService;
+
+    private final Handler handler = new Handler();
+    private Runnable runnable;
+
 
     @BindView(R.id.btn_play)
     Button btnPlay;
@@ -79,13 +85,17 @@ public class PlayerActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
             mPlayerService = binder.getPlayerService();
+            mPlayerService.setOnAudioCompletionListener(PlayerActivity.this);
             tvDuration.setText(msToMilitary(mPlayerService.getDuration()));
-            final Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
+            tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
+            mBound = true;
+
+            runnable = new Runnable() {
                 int x;
                 double y;
                 @Override
                 public void run() {
+                    Log.d("Runnable","Running");
                     y = (mPlayerService.getProgress()+0.0)/(mPlayerService.getDuration()+0.0);
                     x = (int) (y*100);
                     mSeekBar.setProgress(x);
@@ -93,8 +103,6 @@ public class PlayerActivity extends AppCompatActivity {
                     tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
                 }
             };
-            handler.postDelayed(runnable,0);
-            mBound = true;
         }
 
         @Override
@@ -102,19 +110,6 @@ public class PlayerActivity extends AppCompatActivity {
             mBound = false;
         }
     };
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        if(isRunning == NOT_RUNNING){
-//            Log.d("IsRunning","");
-//            unbindService(mServiceConnection);
-//            mPlayerService.resetMedia();
-//        }
-        /*mMediaController.hide();
-        mMediaPlayer.stop();
-        mMediaPlayer.release();*/
-    }
 
     private String msToMilitary(int millis){
         String stringHours,stringMinutes,stringSeconds;
@@ -149,20 +144,16 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("LifeCycle","Activity Destroyed");
-        //mPlayerService.resetMedia();
         if(isFinishing()){
-            Log.d("IsFinisheing","Yes");
             mPlayerService.resetMedia();
             unbindService(mServiceConnection);
             mBound = false;
-        }else {
-            Log.d("IsFinisheing","No");
         }
     }
 
     @OnClick(R.id.btn_play)
     void onPlayClicked(){
+        handler.postDelayed(runnable,0);
         if(mBound){
             mPlayerService.playMedia();
         }
@@ -170,6 +161,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_pause)
     void onPauseClicked(){
+        handler.removeCallbacks(runnable);
         if(mBound){
             mPlayerService.pauseMedia();
         }
@@ -192,5 +184,10 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onAudioCompletion() {
+        handler.removeCallbacks(runnable);
     }
 }
