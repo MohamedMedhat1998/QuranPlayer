@@ -19,4 +19,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
     <string name="indonesian">bahasa Indonesia</string>
+    <string name="favorite">Favorite</string>
+    <string name="offline">Offline</string>
 </resources>

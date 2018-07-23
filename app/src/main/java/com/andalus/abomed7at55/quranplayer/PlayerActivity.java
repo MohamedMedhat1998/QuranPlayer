@@ -1,24 +1,21 @@
 package com.andalus.abomed7at55.quranplayer;
 
-import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
-import com.andalus.abomed7at55.quranplayer.Utils.MyFlags;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
 
 import java.util.concurrent.TimeUnit;
@@ -57,6 +54,9 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     TextView tvProgress;
     @BindView(R.id.tv_duration)
     TextView tvDuration;
+    @BindView(R.id.ib_favorite_switch)
+    ImageButton ibFavoriteSwitch;
+    //TODO handle this switch
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

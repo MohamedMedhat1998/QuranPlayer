@@ -12,7 +12,9 @@ public class SurasListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suras_list);
-        loadSurasListFragment();
+        if(savedInstanceState == null){
+            loadSurasListFragment();
+        }
     }
 
     private void loadSurasListFragment(){

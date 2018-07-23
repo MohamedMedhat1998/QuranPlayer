@@ -19,11 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".SurasListActivity" />
-        <activity android:name=".PlayerActivity" >
-
-        </activity>
+        <activity android:name=".PlayerActivity" />
 
         <service android:name=".Utils.PlayerService" />
+
+        <activity android:name=".OfflineActivity" />
+        <activity android:name=".FavoriteActivity"></activity>
     </application>
 
 </manifest>
