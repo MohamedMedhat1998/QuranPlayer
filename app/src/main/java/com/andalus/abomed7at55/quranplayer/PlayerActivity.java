@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //TODO Optimise and support savedInstantState
-public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener {
+public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener {
 
     private static final int LOADER_ID = 20;
 
@@ -64,7 +64,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         setContentView(R.layout.activity_player);
         //Toast.makeText(getBaseContext(),getIntent().getExtras().getString(Sura.STREAMING_SERVER_KEY),Toast.LENGTH_LONG).show();
         ButterKnife.bind(this);
-
+        mSeekBar.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -189,5 +189,23 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     @Override
     public void onAudioCompletion() {
         handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        double y = i/100.0;
+        if(b){
+            mPlayerService.seekTo((int) (y*mPlayerService.getDuration()));
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

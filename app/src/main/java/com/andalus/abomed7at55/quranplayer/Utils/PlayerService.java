@@ -85,6 +85,10 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         return mMediaPlayer.getDuration();
     }
 
+    public void seekTo(int progress){
+        mMediaPlayer.seekTo(progress);
+    }
+
     public void setOnAudioCompletionListener(OnAudioCompletionListener onAudioCompletionListener){
         mOnAudioCompletionListener = onAudioCompletionListener;
     }
