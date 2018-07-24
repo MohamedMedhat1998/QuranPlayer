@@ -8,35 +8,35 @@ import android.support.annotation.NonNull;
 @Entity
 public class FavoriteSura {
 
-    private static final String SURA_ID = "sura_id";
-    private static final String SURA_NAME = "sura_name";
+    public static final String FAVORITE_SURA_ID = "favorite_sura_id";
+    public static final String FAVORITE_SURA_NAME = "favorite_sura_name";
 
-    private static final String SHEEKH_ID = "sheekh_id";
-    private static final String SHEEKH_NAME = "sheekh_name";
+    public static final String FAVORITE_SHEEKH_ID = "favorite_sheekh_id";
+    public static final String FAVORITE_SHEEKH_NAME = "favorite_sheekh_name";
 
-    private static final String REWAYA = "rewaya";
-    private static final String STREAMING_SERVER="streaming_server";
+    public static final String FAVORITE_REWAYA = "favorite_rewaya";
+    public static final String FAVORITE_STREAMING_SERVER ="favorite_streaming_server";
 
     @NonNull
     @PrimaryKey
     private int uniqueId;
 
-    @ColumnInfo(name = SURA_ID)
+    @ColumnInfo(name = FAVORITE_SURA_ID)
     private String mSuraId;
 
-    @ColumnInfo(name = SURA_NAME)
+    @ColumnInfo(name = FAVORITE_SURA_NAME)
     private String mSuraName;
 
-    @ColumnInfo(name = SHEEKH_ID)
+    @ColumnInfo(name = FAVORITE_SHEEKH_ID)
     private String mSheekhId;
 
-    @ColumnInfo(name = SHEEKH_NAME)
+    @ColumnInfo(name = FAVORITE_SHEEKH_NAME)
     private String mSheekhName;
 
-    @ColumnInfo(name = REWAYA)
+    @ColumnInfo(name = FAVORITE_REWAYA)
     private String mRewaya;
 
-    @ColumnInfo(name = STREAMING_SERVER)
+    @ColumnInfo(name = FAVORITE_STREAMING_SERVER)
     private String mStreamingServer;
 
     @NonNull

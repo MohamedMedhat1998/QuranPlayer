@@ -1,7 +1,5 @@
 package com.andalus.abomed7at55.quranplayer;
 
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,19 +10,17 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
-import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Loaders.DatabaseModificationLoader;
+import com.andalus.abomed7at55.quranplayer.Loaders.IsFavoriteLoader;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
@@ -38,7 +34,8 @@ import butterknife.OnClick;
 //TODO Optimise and support savedInstantState
 public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener, LoaderManager.LoaderCallbacks<Boolean> {
 
-    private static final int LOADER_ID = 20;
+    private static final int DATABASE_MODIFICATION_LOADER_ID = 20;
+    private static final int IS_FAVORITE_LOADER_ID = 30;
 
     boolean mBound = true;
 
@@ -84,15 +81,27 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         targetSura = getIntent().getExtras().getParcelable(Sura.SURA_OBJECT_KEY);
         mSeekBar.setOnSeekBarChangeListener(this);
         setFavoriteSuraArguments();
+        getSupportLoaderManager().initLoader(IS_FAVORITE_LOADER_ID,null,this).forceLoad();
     }
 
     private void setFavoriteSuraArguments(){
-        suraId = targetSura.getId();
-        suraName = targetSura.getName();
-        streamingServer = targetSura.getServer();
-        sheekhId = getIntent().getExtras().getInt(Sheekh.SHEEKH_ID_KEY);
-        sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
-        rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
+        if(targetSura!=null){
+            suraId = targetSura.getId();
+            suraName = targetSura.getName();
+            streamingServer = targetSura.getServer();
+            sheekhId = getIntent().getExtras().getInt(Sheekh.SHEEKH_ID_KEY);
+            sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
+            rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
+        }else{
+            Bundle bundle = getIntent().getExtras();
+            suraId = bundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
+            suraName = bundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
+            streamingServer = bundle.getString(FavoriteSura.FAVORITE_STREAMING_SERVER);
+            sheekhId = bundle.getInt(FavoriteSura.FAVORITE_SHEEKH_ID);
+            sheekhName = bundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
+            rewaya = bundle.getString(FavoriteSura.FAVORITE_REWAYA);
+        }
+
         favoriteSura = new FavoriteSura(suraId*1000+sheekhId,suraId+"",suraName,sheekhId+"",sheekhName,rewaya,streamingServer);
     }
 
@@ -100,7 +109,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     protected void onStart() {
         super.onStart();
             Intent i = new Intent(PlayerActivity.this, PlayerService.class);
-            i.putExtra(Sura.STREAMING_SERVER_KEY,targetSura.getServer());
+            i.putExtra(Sura.STREAMING_SERVER_KEY,streamingServer);
             try {
                 bindService(i,mServiceConnection, Context.BIND_AUTO_CREATE);
             }catch (Exception e){
@@ -184,8 +193,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     @OnClick(R.id.ib_favorite_switch)
     void onFavoriteButtonClicked(){
-        Log.d("Click","Favorite Button");
-        getSupportLoaderManager().initLoader(LOADER_ID,null,this).forceLoad();
+        getSupportLoaderManager().initLoader(DATABASE_MODIFICATION_LOADER_ID,null,this).forceLoad();
     }
 
     @OnClick(R.id.btn_play)
@@ -246,17 +254,23 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     }
 
     void turnOnStar(){
-        ibFavoriteSwitch.setBackground(getResources().getDrawable(android.R.drawable.star_big_on));
+        ibFavoriteSwitch.setImageResource(android.R.drawable.star_big_on);
     }
 
     void turnOffStar(){
-        ibFavoriteSwitch.setBackground(getResources().getDrawable(android.R.drawable.star_big_off));
+        ibFavoriteSwitch.setImageResource(android.R.drawable.star_big_off);
     }
 
     @NonNull
     @Override
     public Loader<Boolean> onCreateLoader(int id, @Nullable Bundle args) {
-        return new DatabaseModificationLoader(getBaseContext(),favoriteSura);
+        if(id == DATABASE_MODIFICATION_LOADER_ID){
+            return new DatabaseModificationLoader(getBaseContext(),favoriteSura);
+        }else if(id == IS_FAVORITE_LOADER_ID){
+            return new IsFavoriteLoader(getBaseContext(),favoriteSura);
+        }else {
+            return null;
+        }
     }
 
     @Override

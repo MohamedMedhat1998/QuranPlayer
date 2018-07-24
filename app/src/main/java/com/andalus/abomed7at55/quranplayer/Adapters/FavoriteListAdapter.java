@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnFavoriteSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.R;
 
 import java.util.ArrayList;
@@ -18,8 +19,10 @@ import butterknife.ButterKnife;
 public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.FavoriteIemViewHolder>{
 
     private ArrayList<FavoriteSura> mData;
+    private OnFavoriteSuraClickListener mOnFavoriteSuraClickListener;
 
-    public FavoriteListAdapter(ArrayList<FavoriteSura> data){
+    public FavoriteListAdapter(ArrayList<FavoriteSura> data,OnFavoriteSuraClickListener onFavoriteSuraClickListener){
+        mOnFavoriteSuraClickListener = onFavoriteSuraClickListener;
         mData = data;
     }
 
@@ -55,6 +58,18 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
         public FavoriteIemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FavoriteSura tempSura = mData.get(getAdapterPosition());
+                    mOnFavoriteSuraClickListener.onFavoriteSuraClick(Integer.parseInt(tempSura.getSuraId()),
+                            tempSura.getSuraName(),
+                            Integer.parseInt(tempSura.getSheekhId()),
+                            tempSura.getSuraName(),
+                            tempSura.getStreamingServer(),
+                            tempSura.getRewaya());
+                }
+            });
         }
     }
 }

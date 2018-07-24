@@ -31,7 +31,6 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        MyFlags.setIsFirstPlayerRun(true);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setOnCompletionListener(this);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
