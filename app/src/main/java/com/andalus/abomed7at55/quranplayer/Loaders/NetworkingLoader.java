@@ -1,4 +1,4 @@
-package com.andalus.abomed7at55.quranplayer.Utils;
+package com.andalus.abomed7at55.quranplayer.Loaders;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
@@ -7,7 +7,7 @@ import com.andalus.abomed7at55.quranplayer.Networking.Networking;
 
 import java.io.IOException;
 
-public class MyLoader extends AsyncTaskLoader<String> {
+public class NetworkingLoader extends AsyncTaskLoader<String> {
 
     private String api;
 
@@ -16,7 +16,7 @@ public class MyLoader extends AsyncTaskLoader<String> {
      * @param context the context of the calling activity
      * @param dataSourceApi the api that contains the json data
      */
-    public MyLoader(Context context , String dataSourceApi) {
+    public NetworkingLoader(Context context , String dataSourceApi) {
         super(context);
         api = dataSourceApi;
     }

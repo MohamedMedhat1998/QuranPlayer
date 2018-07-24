@@ -25,7 +25,7 @@ import com.andalus.abomed7at55.quranplayer.PlayerActivity;
 import com.andalus.abomed7at55.quranplayer.R;
 import com.andalus.abomed7at55.quranplayer.Utils.JsonParser;
 import com.andalus.abomed7at55.quranplayer.Utils.LanguageStorage;
-import com.andalus.abomed7at55.quranplayer.Utils.MyLoader;
+import com.andalus.abomed7at55.quranplayer.Loaders.NetworkingLoader;
 
 import org.json.JSONException;
 
@@ -57,7 +57,7 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        return new MyLoader(getContext(), UrlBuilder.buildSurasNamesUrl(preferences.getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,null)));
+        return new NetworkingLoader(getContext(), UrlBuilder.buildSurasNamesUrl(preferences.getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,null)));
     }
 
     @Override

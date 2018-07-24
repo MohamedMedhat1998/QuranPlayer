@@ -18,6 +18,6 @@ public interface FavoriteSuraDao {
     @Insert
     void insertAll(FavoriteSura... favoriteSuras);
 
-    @Delete
-    void delete(FavoriteSura favoriteSura);
+    @Query("DELETE FROM favoritesura WHERE uniqueId LIKE :id")
+    void deleteById(int id);
 }

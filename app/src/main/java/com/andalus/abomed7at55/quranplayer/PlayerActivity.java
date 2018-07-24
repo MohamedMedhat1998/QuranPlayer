@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
 import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
+import com.andalus.abomed7at55.quranplayer.Loaders.DatabaseModificationLoader;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //TODO Optimise and support savedInstantState
-public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener, LoaderManager.LoaderCallbacks<Object> {
+public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener, LoaderManager.LoaderCallbacks<Boolean> {
 
     private static final int LOADER_ID = 20;
 
@@ -50,7 +51,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private Runnable runnable;
 
     private Sura targetSura;
-    private static FavoriteSura favoriteSura;
+    private FavoriteSura favoriteSura;
     private int suraId, sheekhId;
     private String suraName, sheekhName;
     private String streamingServer;
@@ -184,7 +185,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     @OnClick(R.id.ib_favorite_switch)
     void onFavoriteButtonClicked(){
         Log.d("Click","Favorite Button");
-        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
+        getSupportLoaderManager().initLoader(LOADER_ID,null,this).forceLoad();
     }
 
     @OnClick(R.id.btn_play)
@@ -244,42 +245,31 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     }
 
+    void turnOnStar(){
+        ibFavoriteSwitch.setBackground(getResources().getDrawable(android.R.drawable.star_big_on));
+    }
+
+    void turnOffStar(){
+        ibFavoriteSwitch.setBackground(getResources().getDrawable(android.R.drawable.star_big_off));
+    }
+
     @NonNull
     @Override
-    public Loader<Object> onCreateLoader(int id, @Nullable Bundle args) {
-        Log.d("Loader","OnCreateLoader");
-        return new CustomLoader(getBaseContext());
+    public Loader<Boolean> onCreateLoader(int id, @Nullable Bundle args) {
+        return new DatabaseModificationLoader(getBaseContext(),favoriteSura);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Object> loader, Object data) {
-
+    public void onLoadFinished(@NonNull Loader<Boolean> loader, Boolean data) {
+        if(data){
+            turnOnStar();
+        }else {
+            turnOffStar();
+        }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Object> loader) {
+    public void onLoaderReset(@NonNull Loader<Boolean> loader) {
 
-    }
-
-    private static class CustomLoader extends AsyncTaskLoader<Object>{
-        MyDatabase myDatabase;
-        CustomLoader(@NonNull Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onStartLoading() {
-            super.onStartLoading();
-            forceLoad();
-        }
-
-        @Nullable
-        @Override
-        public Object loadInBackground() {
-            Log.d("Loader","LoadInBackGround");
-            myDatabase = Room.databaseBuilder(getContext(),MyDatabase.class,MyDatabase.DATABASE_NAME).build();
-            myDatabase.favoriteSuraDao().insertAll(favoriteSura);
-            return null;
-        }
     }
 }
