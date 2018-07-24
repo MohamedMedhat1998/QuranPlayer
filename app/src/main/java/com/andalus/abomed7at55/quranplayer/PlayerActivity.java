@@ -1,5 +1,7 @@
 package com.andalus.abomed7at55.quranplayer;
 
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,11 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -14,7 +21,10 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
+import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
+import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
 
@@ -25,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //TODO Optimise and support savedInstantState
-public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener {
+public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener, LoaderManager.LoaderCallbacks<Object> {
 
     private static final int LOADER_ID = 20;
 
@@ -38,6 +48,13 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     private final Handler handler = new Handler();
     private Runnable runnable;
+
+    private Sura targetSura;
+    private static FavoriteSura favoriteSura;
+    private int suraId, sheekhId;
+    private String suraName, sheekhName;
+    private String streamingServer;
+    private String rewaya;
 
 
     @BindView(R.id.btn_play)
@@ -62,16 +79,27 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-        //Toast.makeText(getBaseContext(),getIntent().getExtras().getString(Sura.STREAMING_SERVER_KEY),Toast.LENGTH_LONG).show();
         ButterKnife.bind(this);
+        targetSura = getIntent().getExtras().getParcelable(Sura.SURA_OBJECT_KEY);
         mSeekBar.setOnSeekBarChangeListener(this);
+        setFavoriteSuraArguments();
+    }
+
+    private void setFavoriteSuraArguments(){
+        suraId = targetSura.getId();
+        suraName = targetSura.getName();
+        streamingServer = targetSura.getServer();
+        sheekhId = getIntent().getExtras().getInt(Sheekh.SHEEKH_ID_KEY);
+        sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
+        rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
+        favoriteSura = new FavoriteSura(suraId*1000+sheekhId,suraId+"",suraName,sheekhId+"",sheekhName,rewaya,streamingServer);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
             Intent i = new Intent(PlayerActivity.this, PlayerService.class);
-            i.putExtra(Sura.STREAMING_SERVER_KEY,getIntent().getExtras().getString(Sura.STREAMING_SERVER_KEY));
+            i.putExtra(Sura.STREAMING_SERVER_KEY,targetSura.getServer());
             try {
                 bindService(i,mServiceConnection, Context.BIND_AUTO_CREATE);
             }catch (Exception e){
@@ -95,14 +123,15 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 double y;
                 @Override
                 public void run() {
-                    Log.d("Runnable","Running");
                     y = (mPlayerService.getProgress()+0.0)/(mPlayerService.getDuration()+0.0);
                     x = (int) (y*100);
                     mSeekBar.setProgress(x);
                     handler.postDelayed(this,1000);
                     tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
                 }
+
             };
+            handler.postDelayed(runnable,0);
         }
 
         @Override
@@ -144,11 +173,18 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacks(runnable);
         if(isFinishing()){
             mPlayerService.resetMedia();
             unbindService(mServiceConnection);
             mBound = false;
         }
+    }
+
+    @OnClick(R.id.ib_favorite_switch)
+    void onFavoriteButtonClicked(){
+        Log.d("Click","Favorite Button");
+        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
     }
 
     @OnClick(R.id.btn_play)
@@ -206,5 +242,44 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    @NonNull
+    @Override
+    public Loader<Object> onCreateLoader(int id, @Nullable Bundle args) {
+        Log.d("Loader","OnCreateLoader");
+        return new CustomLoader(getBaseContext());
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Object> loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Object> loader) {
+
+    }
+
+    private static class CustomLoader extends AsyncTaskLoader<Object>{
+        MyDatabase myDatabase;
+        CustomLoader(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            forceLoad();
+        }
+
+        @Nullable
+        @Override
+        public Object loadInBackground() {
+            Log.d("Loader","LoadInBackGround");
+            myDatabase = Room.databaseBuilder(getContext(),MyDatabase.class,MyDatabase.DATABASE_NAME).build();
+            myDatabase.favoriteSuraDao().insertAll(favoriteSura);
+            return null;
+        }
     }
 }

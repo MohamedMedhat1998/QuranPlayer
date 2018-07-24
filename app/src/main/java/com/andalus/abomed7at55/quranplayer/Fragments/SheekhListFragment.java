@@ -74,10 +74,13 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
 
 
     @Override
-    public void onSheekhItemClicked(ArrayList<Integer> ids, String streamingServer) {
+    public void onSheekhItemClicked(ArrayList<Integer> ids, String streamingServer,int sheekhId,String sheekhName,String rewaya) {
         Intent i = new Intent(getActivity(), SurasListActivity.class);
         i.putExtra(Sura.IDS_KEY,ids);
         i.putExtra(Sura.STREAMING_SERVER_ROOT_KEY,streamingServer);
+        i.putExtra(Sheekh.SHEEKH_ID_KEY,sheekhId);
+        i.putExtra(Sheekh.SHEEKH_NAME_KEY,sheekhName);
+        i.putExtra(Sheekh.REWAYA_KEY,rewaya);
         startActivity(i);
     }
 }

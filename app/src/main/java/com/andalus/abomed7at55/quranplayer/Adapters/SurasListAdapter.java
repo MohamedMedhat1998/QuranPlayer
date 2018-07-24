@@ -56,7 +56,7 @@ public class SurasListAdapter extends RecyclerView.Adapter<SurasListAdapter.Sura
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnSuraClickListener.onSuraClick(mData.get(getAdapterPosition()).getServer());
+                    mOnSuraClickListener.onSuraClick(mData.get(getAdapterPosition()));
                 }
             });
         }

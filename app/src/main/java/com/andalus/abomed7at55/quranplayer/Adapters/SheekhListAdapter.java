@@ -60,7 +60,11 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mSheekhItemClickListener.onSheekhItemClicked(mData.get(getAdapterPosition()).getSurasIds(),mData.get(getAdapterPosition()).getServer());
+                    mSheekhItemClickListener.onSheekhItemClicked(mData.get(getAdapterPosition()).getSurasIds(),
+                            mData.get(getAdapterPosition()).getServer(),
+                            (int) mData.get(getAdapterPosition()).getId(),
+                            mData.get(getAdapterPosition()).getName(),
+                            mData.get(getAdapterPosition()).getRewaya());
                 }
             });
         }

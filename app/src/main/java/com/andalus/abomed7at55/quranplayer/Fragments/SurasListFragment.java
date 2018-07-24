@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.andalus.abomed7at55.quranplayer.Adapters.SurasListAdapter;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.Networking.UrlBuilder;
+import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.PlayerActivity;
 import com.andalus.abomed7at55.quranplayer.R;
@@ -78,9 +79,12 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void onSuraClick(String streamingUrl) {
+    public void onSuraClick(Sura sura) {
         Intent i = new Intent(getActivity(), PlayerActivity.class);
-        i.putExtra(Sura.STREAMING_SERVER_KEY,streamingUrl);
+        i.putExtra(Sura.SURA_OBJECT_KEY,sura);
+        i.putExtra(Sheekh.SHEEKH_ID_KEY,getArguments().getInt(Sheekh.SHEEKH_ID_KEY));
+        i.putExtra(Sheekh.SHEEKH_NAME_KEY,getArguments().getString(Sheekh.SHEEKH_NAME_KEY));
+        i.putExtra(Sheekh.REWAYA_KEY,getArguments().getString(Sheekh.REWAYA_KEY));
         startActivity(i);
     }
 }

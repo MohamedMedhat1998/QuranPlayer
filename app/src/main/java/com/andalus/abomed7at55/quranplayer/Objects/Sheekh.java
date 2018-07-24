@@ -11,6 +11,10 @@ public class Sheekh {
     private ArrayList<Integer> mSurasIds;
     private long mId;
 
+    public static final String SHEEKH_ID_KEY = "sheekh_id";
+    public static final String SHEEKH_NAME_KEY = "sheekh_name";
+    public static final String REWAYA_KEY = "sheekh_rewaya";
+
     public Sheekh(long id,String name, String server, String rewaya, int count, String suras) {
         mId = id;
         mName = name;

@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 
 public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<FavoriteSura>> {
 
+    private static final int LOADER_ID = 40;
+
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
 
@@ -32,7 +34,7 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         ButterKnife.bind(this);
-        getSupportLoaderManager().initLoader(40,null,this);
+        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
     }
 
     @NonNull
@@ -56,6 +58,12 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
         CustomLoader(Context context) {
             super(context);
+        }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            forceLoad();
         }
 
         @Override
