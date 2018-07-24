@@ -21,4 +21,6 @@
     <string name="indonesian">bahasa Indonesia</string>
     <string name="favorite">Favorite</string>
     <string name="offline">Offline</string>
+    <string name="download_successful">Downloaded Successfully</string>
+    <string name="download_failed">Already Downloaded</string>
 </resources>

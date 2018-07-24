@@ -16,10 +16,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
+import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Loaders.DatabaseModificationLoader;
+import com.andalus.abomed7at55.quranplayer.Loaders.DownloaderLoader;
 import com.andalus.abomed7at55.quranplayer.Loaders.IsFavoriteLoader;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
@@ -36,23 +39,23 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     private static final int DATABASE_MODIFICATION_LOADER_ID = 20;
     private static final int IS_FAVORITE_LOADER_ID = 30;
+    private static final int DOWNLOAD_LOADER_ID = 10;
 
     boolean mBound = true;
-
-
-    private static final String TAG = "AudioPlayer";
 
     private PlayerService mPlayerService;
 
     private final Handler handler = new Handler();
     private Runnable runnable;
 
-    private Sura targetSura;
     private FavoriteSura favoriteSura;
+    private Sura targetSura;
     private int suraId, sheekhId;
     private String suraName, sheekhName;
     private String streamingServer;
     private String rewaya;
+
+    private OfflineSura mOfflineSura;
 
 
     @BindView(R.id.btn_play)
@@ -71,7 +74,8 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     TextView tvDuration;
     @BindView(R.id.ib_favorite_switch)
     ImageButton ibFavoriteSwitch;
-    //TODO handle this switch
+    @BindView(R.id.ib_download)
+    ImageButton ibDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +195,11 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         }
     }
 
+    @OnClick(R.id.ib_download)
+    void onDownloadButtonClicked(){
+        getSupportLoaderManager().initLoader(DOWNLOAD_LOADER_ID,null,this).forceLoad();
+    }
+
     @OnClick(R.id.ib_favorite_switch)
     void onFavoriteButtonClicked(){
         getSupportLoaderManager().initLoader(DATABASE_MODIFICATION_LOADER_ID,null,this).forceLoad();
@@ -268,17 +277,27 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
             return new DatabaseModificationLoader(getBaseContext(),favoriteSura);
         }else if(id == IS_FAVORITE_LOADER_ID){
             return new IsFavoriteLoader(getBaseContext(),favoriteSura);
-        }else {
+        }else if(id == DOWNLOAD_LOADER_ID){
+            return new DownloaderLoader(this,favoriteSura);
+        }else{
             return null;
         }
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Boolean> loader, Boolean data) {
-        if(data){
-            turnOnStar();
-        }else {
-            turnOffStar();
+        if(loader instanceof DatabaseModificationLoader || loader instanceof IsFavoriteLoader){
+            if(data){
+                turnOnStar();
+            }else {
+                turnOffStar();
+            }
+        }else if(loader instanceof DownloaderLoader){
+            if(data){
+                Toast.makeText(getBaseContext(), R.string.download_successful,Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getBaseContext(), R.string.download_failed,Toast.LENGTH_LONG).show();
+            }
         }
     }
 

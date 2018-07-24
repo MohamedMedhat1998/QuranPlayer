@@ -2,6 +2,7 @@ package com.andalus.abomed7at55.quranplayer.Networking;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -15,15 +16,15 @@ public class Downloader {
     private DownloadManager mDownloadManager;
     private String mDownloadPath;
     private String mPackageName;
-    private Activity mCurrentActivity;
     private Uri mUri;
     private String mFileName;
     private File mDownloadedFile;
+    private Context mContext;
 
-    public Downloader(Activity currentActivity,String url,String fileName){
-        mCurrentActivity = currentActivity;
-        mDownloadManager = (DownloadManager)mCurrentActivity.getSystemService(DOWNLOAD_SERVICE);
-        mPackageName = mCurrentActivity.getApplication().getPackageName();
+    public Downloader(Context context, String url, String fileName){
+        mContext = context;
+        mDownloadManager = (DownloadManager)mContext.getSystemService(DOWNLOAD_SERVICE);
+        mPackageName = mContext.getPackageName();
         mFileName = fileName;
         mDownloadPath = Environment.getExternalStorageDirectory()+"/Android/data/"+mPackageName+"/files/downloads/";
         mDownloadedFile = new File(mDownloadPath+mFileName);
@@ -34,7 +35,7 @@ public class Downloader {
         mUri = Uri.parse(mDownloadLink);
         mRequest = new DownloadManager.Request(mUri);
         DownloadManager.Request request = new DownloadManager.Request(mUri);
-        request.setDestinationInExternalFilesDir(mCurrentActivity.getBaseContext(),"/downloads",mFileName);
+        request.setDestinationInExternalFilesDir(mContext,"/downloads",mFileName);
         mDownloadManager.enqueue(request);
 
     }

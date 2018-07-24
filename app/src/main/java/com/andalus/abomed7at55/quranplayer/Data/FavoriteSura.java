@@ -77,4 +77,8 @@ public class FavoriteSura {
     public String getStreamingServer() {
         return mStreamingServer;
     }
+
+    public String getOfflineName(){
+        return mSheekhName+" - "+mSuraName+" - "+mRewaya;
+    }
 }
