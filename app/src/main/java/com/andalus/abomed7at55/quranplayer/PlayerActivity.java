@@ -117,13 +117,13 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 String streamingPath = offlineBundle.getString(OfflineSura.OFFLINE_STREAMING_PATH);
                 String fileName = offlineBundle.getString(OfflineSura.OFFLINE_FILE_NAME);
                 Log.d("MediaPlayer",streamingPath+fileName);
-                streamingServer = streamingPath+fileName;
+                streamingServer = streamingPath+fileName+".mp3";
                 sheekhId = offlineBundle.getInt(OfflineSura.OFFLINE_SHEEKH_ID);
                 sheekhName = offlineBundle.getString(OfflineSura.OFFLINE_SHEEKH_NAME);
                 rewaya = offlineBundle.getString(OfflineSura.OFFLINE_REWAYA);
                 break;
         }
-
+        Log.d("Streaming Server",streamingServer);
         favoriteSura = new FavoriteSura(suraId*1000+sheekhId,suraId+"",suraName,sheekhId+"",sheekhName,rewaya,streamingServer);
     }
 

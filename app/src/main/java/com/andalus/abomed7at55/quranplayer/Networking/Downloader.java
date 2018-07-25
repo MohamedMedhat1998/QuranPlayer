@@ -1,10 +1,10 @@
 package com.andalus.abomed7at55.quranplayer.Networking;
 
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 
@@ -27,6 +27,7 @@ public class Downloader {
         mPackageName = mContext.getPackageName();
         mFileName = fileName;
         mDownloadPath = Environment.getExternalStorageDirectory()+"/Android/data/"+mPackageName+"/files/downloads/";
+        Log.d("DOWNLOAD_PATH",mDownloadPath);
         mDownloadedFile = new File(mDownloadPath+mFileName);
         mDownloadLink = url;
     }
@@ -36,8 +37,10 @@ public class Downloader {
         mRequest = new DownloadManager.Request(mUri);
         DownloadManager.Request request = new DownloadManager.Request(mUri);
         request.setDestinationInExternalFilesDir(mContext,"/downloads",mFileName);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+        request.setTitle("Quran");
+        request.setDescription("Downloading selected sura");
         mDownloadManager.enqueue(request);
-
     }
     public void setDownloadLink(String url){
         mDownloadLink = url;

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
@@ -37,6 +38,7 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         String mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
         try {
             mMediaPlayer.setDataSource(mStreamingServer);
+            Log.d("Playing Service",mStreamingServer);
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();

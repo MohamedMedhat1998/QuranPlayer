@@ -62,7 +62,7 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
         i.putExtra(OfflineSura.OFFLINE_SHEEKH_NAME,sheekhName);
         i.putExtra(OfflineSura.OFFLINE_STREAMING_PATH,streamingPath);
         i.putExtra(OfflineSura.OFFLINE_REWAYA,rewaya);
-        i.putExtra(OfflineSura.OFFLINE_FILE_NAME,fileName);
+        i.putExtra(OfflineSura.OFFLINE_FILE_NAME,suraId*1000+sheekhId+"");
         startActivity(i);
     }
 }

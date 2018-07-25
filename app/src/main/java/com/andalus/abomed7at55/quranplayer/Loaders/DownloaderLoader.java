@@ -9,7 +9,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
 import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
-import com.andalus.abomed7at55.quranplayer.MainActivity;
 import com.andalus.abomed7at55.quranplayer.Networking.Downloader;
 
 public class DownloaderLoader extends AsyncTaskLoader<Boolean> {
@@ -35,7 +34,7 @@ public class DownloaderLoader extends AsyncTaskLoader<Boolean> {
         MyDatabase myDatabase = Room.databaseBuilder(getContext(),MyDatabase.class,MyDatabase.DATABASE_NAME).build();
         OfflineSura offlineSura = myDatabase.offlineSuraDao().getById(mFavoriteSura.getUniqueId() +"");
         if(offlineSura == null){
-            Downloader downloader = new Downloader(getContext(),mFavoriteSura.getStreamingServer(),mFavoriteSura.getOfflineName()+".mp3");
+            Downloader downloader = new Downloader(getContext(),mFavoriteSura.getStreamingServer(),mFavoriteSura.getUniqueId()+".mp3");
             downloader.startDownload();
             offlineSura = new OfflineSura(mFavoriteSura.getUniqueId(),
                     mFavoriteSura.getSuraId(),
