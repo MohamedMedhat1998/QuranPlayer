@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -101,13 +102,25 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
                 break;
             case PlayerActivity.TAG_FROM_FAVORITE_LIST:
-                Bundle bundle = getIntent().getExtras();
-                suraId = bundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
-                suraName = bundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
-                streamingServer = bundle.getString(FavoriteSura.FAVORITE_STREAMING_SERVER);
-                sheekhId = bundle.getInt(FavoriteSura.FAVORITE_SHEEKH_ID);
-                sheekhName = bundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
-                rewaya = bundle.getString(FavoriteSura.FAVORITE_REWAYA);
+                Bundle favoriteBundle = getIntent().getExtras();
+                suraId = favoriteBundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
+                suraName = favoriteBundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
+                streamingServer = favoriteBundle.getString(FavoriteSura.FAVORITE_STREAMING_SERVER);
+                sheekhId = favoriteBundle.getInt(FavoriteSura.FAVORITE_SHEEKH_ID);
+                sheekhName = favoriteBundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
+                rewaya = favoriteBundle.getString(FavoriteSura.FAVORITE_REWAYA);
+                break;
+            case PlayerActivity.TAG_FROM_OFFLINE_LIST:
+                Bundle offlineBundle = getIntent().getExtras();
+                suraId = offlineBundle.getInt(OfflineSura.OFFLINE_SURA_ID);
+                suraName = offlineBundle.getString(OfflineSura.OFFLINE_SURA_NAME);
+                String streamingPath = offlineBundle.getString(OfflineSura.OFFLINE_STREAMING_PATH);
+                String fileName = offlineBundle.getString(OfflineSura.OFFLINE_FILE_NAME);
+                Log.d("MediaPlayer",streamingPath+fileName);
+                streamingServer = streamingPath+fileName;
+                sheekhId = offlineBundle.getInt(OfflineSura.OFFLINE_SHEEKH_ID);
+                sheekhName = offlineBundle.getString(OfflineSura.OFFLINE_SHEEKH_NAME);
+                rewaya = offlineBundle.getString(OfflineSura.OFFLINE_REWAYA);
                 break;
         }
 

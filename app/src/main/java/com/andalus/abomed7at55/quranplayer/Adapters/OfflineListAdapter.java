@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnOfflineSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.R;
 
 import java.util.ArrayList;
@@ -18,9 +19,11 @@ import butterknife.ButterKnife;
 public class OfflineListAdapter extends RecyclerView.Adapter<OfflineListAdapter.OfflineItemHolder>{
 
     private ArrayList<OfflineSura> mData;
+    private OnOfflineSuraClickListener mOnOfflineSuraClickListener;
 
-    public OfflineListAdapter(ArrayList<OfflineSura> data){
+    public OfflineListAdapter(ArrayList<OfflineSura> data,OnOfflineSuraClickListener onOfflineSuraClickListener){
         mData = data;
+        mOnOfflineSuraClickListener = onOfflineSuraClickListener;
     }
 
     @NonNull
@@ -55,6 +58,19 @@ public class OfflineListAdapter extends RecyclerView.Adapter<OfflineListAdapter.
         public OfflineItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    OfflineSura temp = mData.get(getAdapterPosition());
+                    mOnOfflineSuraClickListener.onOfflineSuraClicked(Integer.parseInt(temp.getSuraId()),
+                            temp.getSuraName(),
+                            Integer.parseInt(temp.getSheekhId()),
+                            temp.getSheekhName(),
+                            temp.getStreamingPath(),
+                            temp.getRewaya(),
+                            temp.getOfflineFileName());
+                }
+            });
         }
     }
 }
