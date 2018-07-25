@@ -41,7 +41,7 @@ public class DownloaderLoader extends AsyncTaskLoader<Boolean> {
                     mFavoriteSura.getSuraId(),
                     mFavoriteSura.getSuraName(),
                     mFavoriteSura.getSheekhId(),
-                    mFavoriteSura.getSuraName(),
+                    mFavoriteSura.getSheekhName(),
                     mFavoriteSura.getRewaya(),
                     downloader.getDownloadPath(),
                     mFavoriteSura.getOfflineName()+".mp3");

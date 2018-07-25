@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 
 public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<FavoriteSura>>,OnFavoriteSuraClickListener {
 
-    private static final int LOADER_ID = 40;
+    private static final int LOADER_ID = 45;
 
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
@@ -45,7 +45,7 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<ArrayList<FavoriteSura>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new DatabaseQueryingLoader(getBaseContext());
+        return new DatabaseQueryingLoader<FavoriteSura>(getBaseContext(),DatabaseQueryingLoader.TAG_QUERY_FAVORITE);
     }
 
     @Override
@@ -69,6 +69,7 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         i.putExtra(FavoriteSura.FAVORITE_SHEEKH_NAME,sheekhName);
         i.putExtra(FavoriteSura.FAVORITE_STREAMING_SERVER,streamingServer);
         i.putExtra(FavoriteSura.FAVORITE_REWAYA,rewaya);
+        i.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_FAVORITE_LIST);
         startActivity(i);
     }
 }

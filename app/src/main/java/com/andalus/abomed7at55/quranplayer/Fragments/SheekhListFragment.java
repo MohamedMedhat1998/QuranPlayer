@@ -20,6 +20,7 @@ import com.andalus.abomed7at55.quranplayer.Interfaces.OnSheekhItemClickListener;
 import com.andalus.abomed7at55.quranplayer.Networking.UrlBuilder;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
+import com.andalus.abomed7at55.quranplayer.PlayerActivity;
 import com.andalus.abomed7at55.quranplayer.R;
 import com.andalus.abomed7at55.quranplayer.SurasListActivity;
 import com.andalus.abomed7at55.quranplayer.Utils.JsonParser;

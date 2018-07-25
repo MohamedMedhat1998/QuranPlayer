@@ -10,11 +10,19 @@ import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 
 import java.util.ArrayList;
 
-public class DatabaseQueryingLoader
-        extends AsyncTaskLoader<ArrayList<FavoriteSura>> {
+public class DatabaseQueryingLoader<T>
+        extends AsyncTaskLoader<ArrayList<T>> {
 
-    public DatabaseQueryingLoader(@NonNull Context context) {
+    public static final String TAG_QUERY_FAVORITE = "query_favorite";
+    public static final String TAG_QUERY_OFFLINE = "query_offline";
+
+    private String mQueryTag;
+    private MyDatabase database;
+
+    public DatabaseQueryingLoader(@NonNull Context context,String queryTag) {
         super(context);
+        mQueryTag = queryTag;
+        database = Room.databaseBuilder(getContext(), MyDatabase.class, MyDatabase.DATABASE_NAME).build();
     }
 
     @Override
@@ -24,9 +32,25 @@ public class DatabaseQueryingLoader
     }
 
     @Override
-    public ArrayList<FavoriteSura> loadInBackground() {
-        MyDatabase database = Room.databaseBuilder(getContext(), MyDatabase.class, MyDatabase.DATABASE_NAME).build();
-        return (ArrayList<FavoriteSura>) database.favoriteSuraDao().getAll();
+    public ArrayList<T> loadInBackground() {
+        ArrayList<T> dataArrayList = null;
+        switch (mQueryTag){
+            case TAG_QUERY_FAVORITE:
+                dataArrayList = setUpFavoriteArrayList();
+                break;
+            case TAG_QUERY_OFFLINE:
+                dataArrayList = setUpOfflineArrayList();
+                break;
+        }
+        return dataArrayList;
+    }
+
+    private ArrayList<T> setUpFavoriteArrayList(){
+        return (ArrayList<T>) database.favoriteSuraDao().getAll();
+    }
+
+    private ArrayList<T> setUpOfflineArrayList(){
+        return (ArrayList<T>) database.offlineSuraDao().getAll();
     }
 
 }

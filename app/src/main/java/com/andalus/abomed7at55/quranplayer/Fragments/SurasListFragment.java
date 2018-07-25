@@ -85,6 +85,7 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         i.putExtra(Sheekh.SHEEKH_ID_KEY,getArguments().getInt(Sheekh.SHEEKH_ID_KEY));
         i.putExtra(Sheekh.SHEEKH_NAME_KEY,getArguments().getString(Sheekh.SHEEKH_NAME_KEY));
         i.putExtra(Sheekh.REWAYA_KEY,getArguments().getString(Sheekh.REWAYA_KEY));
+        i.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_SURA_LIST);
         startActivity(i);
     }
 }

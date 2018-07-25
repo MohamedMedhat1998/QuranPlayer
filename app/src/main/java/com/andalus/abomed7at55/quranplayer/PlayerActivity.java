@@ -40,6 +40,10 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private static final int DATABASE_MODIFICATION_LOADER_ID = 20;
     private static final int IS_FAVORITE_LOADER_ID = 30;
     private static final int DOWNLOAD_LOADER_ID = 10;
+    public static final String TAG = "player_tag";
+    public static final String TAG_FROM_SURA_LIST = "from_sura_list";
+    public static final String TAG_FROM_FAVORITE_LIST = "from_favorite_list";
+    public static final String TAG_FROM_OFFLINE_LIST = "from_offline_list";
 
     boolean mBound = true;
 
@@ -54,9 +58,6 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private String suraName, sheekhName;
     private String streamingServer;
     private String rewaya;
-
-    private OfflineSura mOfflineSura;
-
 
     @BindView(R.id.btn_play)
     Button btnPlay;
@@ -87,23 +88,27 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         setFavoriteSuraArguments();
         getSupportLoaderManager().initLoader(IS_FAVORITE_LOADER_ID,null,this).forceLoad();
     }
-
+    //TODO put TAG Here to distinguish between different states
     private void setFavoriteSuraArguments(){
-        if(targetSura!=null){
-            suraId = targetSura.getId();
-            suraName = targetSura.getName();
-            streamingServer = targetSura.getServer();
-            sheekhId = getIntent().getExtras().getInt(Sheekh.SHEEKH_ID_KEY);
-            sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
-            rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
-        }else{
-            Bundle bundle = getIntent().getExtras();
-            suraId = bundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
-            suraName = bundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
-            streamingServer = bundle.getString(FavoriteSura.FAVORITE_STREAMING_SERVER);
-            sheekhId = bundle.getInt(FavoriteSura.FAVORITE_SHEEKH_ID);
-            sheekhName = bundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
-            rewaya = bundle.getString(FavoriteSura.FAVORITE_REWAYA);
+        String tag = getIntent().getExtras().getString(TAG);
+        switch (tag){
+            case PlayerActivity.TAG_FROM_SURA_LIST:
+                suraId = targetSura.getId();
+                suraName = targetSura.getName();
+                streamingServer = targetSura.getServer();
+                sheekhId = getIntent().getExtras().getInt(Sheekh.SHEEKH_ID_KEY);
+                sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
+                rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
+                break;
+            case PlayerActivity.TAG_FROM_FAVORITE_LIST:
+                Bundle bundle = getIntent().getExtras();
+                suraId = bundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
+                suraName = bundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
+                streamingServer = bundle.getString(FavoriteSura.FAVORITE_STREAMING_SERVER);
+                sheekhId = bundle.getInt(FavoriteSura.FAVORITE_SHEEKH_ID);
+                sheekhName = bundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
+                rewaya = bundle.getString(FavoriteSura.FAVORITE_REWAYA);
+                break;
         }
 
         favoriteSura = new FavoriteSura(suraId*1000+sheekhId,suraId+"",suraName,sheekhId+"",sheekhName,rewaya,streamingServer);
