@@ -116,14 +116,12 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 suraName = offlineBundle.getString(OfflineSura.OFFLINE_SURA_NAME);
                 String streamingPath = offlineBundle.getString(OfflineSura.OFFLINE_STREAMING_PATH);
                 String fileName = offlineBundle.getString(OfflineSura.OFFLINE_FILE_NAME);
-                Log.d("MediaPlayer",streamingPath+fileName);
                 streamingServer = streamingPath+fileName+".mp3";
                 sheekhId = offlineBundle.getInt(OfflineSura.OFFLINE_SHEEKH_ID);
                 sheekhName = offlineBundle.getString(OfflineSura.OFFLINE_SHEEKH_NAME);
                 rewaya = offlineBundle.getString(OfflineSura.OFFLINE_REWAYA);
                 break;
         }
-        Log.d("Streaming Server",streamingServer);
         favoriteSura = new FavoriteSura(suraId*1000+sheekhId,suraId+"",suraName,sheekhId+"",sheekhName,rewaya,streamingServer);
     }
 
@@ -131,7 +129,8 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     protected void onStart() {
         super.onStart();
             Intent i = new Intent(PlayerActivity.this, PlayerService.class);
-            i.putExtra(Sura.STREAMING_SERVER_KEY,streamingServer);
+        Log.d("Streaming Server",streamingServer);
+        i.putExtra(Sura.STREAMING_SERVER_KEY,streamingServer);
             try {
                 bindService(i,mServiceConnection, Context.BIND_AUTO_CREATE);
             }catch (Exception e){

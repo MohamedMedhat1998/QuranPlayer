@@ -1,20 +1,15 @@
 package com.andalus.abomed7at55.quranplayer.Widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
-import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
+import com.andalus.abomed7at55.quranplayer.PlayerActivity;
 import com.andalus.abomed7at55.quranplayer.R;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Implementation of App Widget functionality.
@@ -30,6 +25,10 @@ public class PlayerWidget extends AppWidgetProvider {
 
         Intent i = new Intent(context,WidgetRemoteViewService.class);
         views.setRemoteAdapter(R.id.widget_player_grid_view,i);
+
+        Intent playerActivityIntent = new Intent(context, PlayerActivity.class);
+        PendingIntent playerActivityPendingIntent = PendingIntent.getActivity(context,5,playerActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.widget_player_grid_view,playerActivityPendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_player_grid_view);

@@ -37,8 +37,8 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         String mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
         try {
-            mMediaPlayer.setDataSource(mStreamingServer);
             Log.d("Playing Service",mStreamingServer);
+            mMediaPlayer.setDataSource(mStreamingServer);
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
