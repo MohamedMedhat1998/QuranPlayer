@@ -48,8 +48,12 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        mOnAudioCompletionListener.onAudioCompletion();
-        mMediaPlayer.stop();
+        try {
+            mOnAudioCompletionListener.onAudioCompletion();
+            mMediaPlayer.stop();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         try {
             mMediaPlayer.prepare();
         } catch (Exception e) {

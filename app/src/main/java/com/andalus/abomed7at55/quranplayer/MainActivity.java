@@ -1,5 +1,7 @@
 package com.andalus.abomed7at55.quranplayer;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,6 +20,7 @@ import com.andalus.abomed7at55.quranplayer.Fragments.LanguageFragment;
 import com.andalus.abomed7at55.quranplayer.Fragments.SheekhListFragment;
 import com.andalus.abomed7at55.quranplayer.Networking.Networking;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
+import com.andalus.abomed7at55.quranplayer.Widget.PlayerWidget;
 
 import java.io.IOException;
 
@@ -35,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int FIRST_RUN = 0;
     private static final int NOT_FIRST_RUN = 10;
 
+    private AppWidgetManager myAppWidgetManager;
+    private int ids[];
+
     //Binding Views
     @BindView(R.id.btn_next_language)
     Button btnNextLanguage;
@@ -45,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         /*Downloader downloader = new Downloader(MainActivity.this,DOWNLOAD_LINK,"001");
         downloader.startDownload();*/
         ButterKnife.bind(this);
+
+        myAppWidgetManager = AppWidgetManager.getInstance(this);
+        ids = myAppWidgetManager.getAppWidgetIds(new ComponentName(this, PlayerWidget.class));
+        PlayerWidget.customUpdate(getBaseContext(),myAppWidgetManager,ids);
 
         if(isFirstRun()){
             if(savedInstanceState == null){

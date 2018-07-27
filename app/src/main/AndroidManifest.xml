@@ -3,7 +3,7 @@
     package="com.andalus.abomed7at55.quranplayer">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,9 +23,21 @@
         <activity android:name=".PlayerActivity" />
 
         <service android:name=".Utils.PlayerService" />
+        <service android:name=".Widget.WidgetRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity android:name=".OfflineActivity" />
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".FavoriteActivity" />
+
+        <receiver android:name=".Widget.PlayerWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/player_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

@@ -23,4 +23,6 @@
     <string name="offline">Offline</string>
     <string name="download_successful">Downloaded Successfully</string>
     <string name="download_failed">Already Downloaded</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
