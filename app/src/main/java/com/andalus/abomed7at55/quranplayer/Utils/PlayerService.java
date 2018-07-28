@@ -4,12 +4,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
+import com.andalus.abomed7at55.quranplayer.Interfaces.OnPreparationFinishedListener;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
 
     private MediaPlayer mMediaPlayer;
     private OnAudioCompletionListener mOnAudioCompletionListener;
+    private OnPreparationFinishedListener mOnPreparationFinishedListener;
 
 
     public class LocalBinder extends Binder{
@@ -37,9 +39,27 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         String mStreamingServer = intent.getExtras().getString(Sura.STREAMING_SERVER_KEY);
         try {
-            Log.d("Playing Service",mStreamingServer);
+//            Log.d("Playing Service",mStreamingServer);
             mMediaPlayer.setDataSource(mStreamingServer);
-            mMediaPlayer.prepare();
+            new AsyncTask<Object, Object, Object>(){
+
+                @Override
+                protected Object doInBackground(Object... objects) {
+                    try {
+                        mMediaPlayer.prepare();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    super.onPostExecute(o);
+                    mOnPreparationFinishedListener.onPreparationFinished();
+                }
+            }.execute();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,6 +117,10 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
 
     public void setOnAudioCompletionListener(OnAudioCompletionListener onAudioCompletionListener){
         mOnAudioCompletionListener = onAudioCompletionListener;
+    }
+
+    public void setOnPreparationFinishedListener(OnPreparationFinishedListener onPreparationFinishedListener){
+        mOnPreparationFinishedListener = onPreparationFinishedListener;
     }
 
 }

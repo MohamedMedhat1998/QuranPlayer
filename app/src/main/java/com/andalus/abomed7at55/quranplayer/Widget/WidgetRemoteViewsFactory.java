@@ -55,7 +55,6 @@ public class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
         views.setTextViewText(R.id.tv_widget_sheekh_name,tempSura.getSheekhName());
         views.setTextViewText(R.id.tv_widget_sura_name,tempSura.getSuraName());
         views.setTextViewText(R.id.tv_widget_rewaya,tempSura.getRewaya());
-        //Log.d("getViewAt",i+" - "+tempSura.getSuraName());
         Intent intent = new Intent();
 
         intent.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_OFFLINE_LIST);
@@ -67,16 +66,6 @@ public class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
         intent.putExtra(OfflineSura.OFFLINE_REWAYA,tempSura.getRewaya());
         int fileNameInt = Integer.parseInt(tempSura.getSuraId())*1000+Integer.parseInt(tempSura.getSheekhId());
         intent.putExtra(OfflineSura.OFFLINE_FILE_NAME,fileNameInt+"");
-
-
-//        Log.d("Widget Extras","TAG" + PlayerActivity.TAG_FROM_OFFLINE_LIST);
-//        Log.d("Widget Extras","Sura Id" + tempSura.getSuraId());
-//        Log.d("Widget Extras","Sura Name" + tempSura.getSuraName());
-//        Log.d("Widget Extras","Sheekh Id" + tempSura.getSheekhId());
-//        Log.d("Widget Extras","Sheekh Name" + tempSura.getSheekhName());
-//        Log.d("Widget Extras","Streaming Path" + tempSura.getStreamingPath());
-//        Log.d("Widget Extras","Rewaya" + tempSura.getRewaya());
-//        Log.d("Widget Extras","Offline Name" + tempSura.getOfflineFileName());
 
         views.setOnClickFillInIntent(R.id.widget_item_container,intent);
 
