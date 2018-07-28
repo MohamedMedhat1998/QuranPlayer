@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int FIRST_RUN = 0;
     private static final int NOT_FIRST_RUN = 10;
 
-    private AppWidgetManager myAppWidgetManager;
-    private int ids[];
-
     //Binding Views
     @BindView(R.id.btn_next_language)
     Button btnNextLanguage;
@@ -50,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         MobileAds.initialize(this, getString(R.string.adKey));
 
-        myAppWidgetManager = AppWidgetManager.getInstance(this);
-        ids = myAppWidgetManager.getAppWidgetIds(new ComponentName(this, PlayerWidget.class));
-        PlayerWidget.customUpdate(getBaseContext(),myAppWidgetManager,ids);
+        updateWidget();
 
         if(isFirstRun()){
             if(savedInstanceState == null){
@@ -74,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int isFirstRun = sharedPreferences.getInt(IS_FIRST_RUN_KEY,FIRST_RUN);
         return isFirstRun == FIRST_RUN;
+    }
+
+    private void updateWidget(){
+        AppWidgetManager myAppWidgetManager = AppWidgetManager.getInstance(this);
+        int[] ids = myAppWidgetManager.getAppWidgetIds(new ComponentName(this, PlayerWidget.class));
+        PlayerWidget.customUpdate(getBaseContext(), myAppWidgetManager, ids);
     }
 
     /**

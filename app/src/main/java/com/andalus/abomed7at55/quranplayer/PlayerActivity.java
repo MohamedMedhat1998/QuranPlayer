@@ -1,5 +1,6 @@
 package com.andalus.abomed7at55.quranplayer;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,8 @@ import com.andalus.abomed7at55.quranplayer.Loaders.IsFavoriteLoader;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
+import com.andalus.abomed7at55.quranplayer.Widget.PlayerWidget;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -94,11 +97,12 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
-        //-----
+
         if(savedInstanceState != null){
             canIPrepare = savedInstanceState.getInt(PREPARATION_KEY);
         }
-        //-----
+
+
         targetSura = getIntent().getExtras().getParcelable(Sura.SURA_OBJECT_KEY);
         mSeekBar.setOnSeekBarChangeListener(this);
         setFavoriteSuraArguments();
@@ -348,6 +352,9 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
             } else {
                 Toast.makeText(getBaseContext(), R.string.download_failed, Toast.LENGTH_LONG).show();
             }
+            AppWidgetManager myAppWidgetManager = AppWidgetManager.getInstance(this);
+            int[] ids = myAppWidgetManager.getAppWidgetIds(new ComponentName(this, PlayerWidget.class));
+            PlayerWidget.customUpdate(getBaseContext(), myAppWidgetManager, ids);
         }
     }
 
