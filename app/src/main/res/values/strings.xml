@@ -25,4 +25,5 @@
     <string name="download_failed">Already Downloaded</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="adKey">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

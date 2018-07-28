@@ -4,25 +4,23 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.andalus.abomed7at55.quranplayer.Fragments.LanguageFragment;
 import com.andalus.abomed7at55.quranplayer.Fragments.SheekhListFragment;
-import com.andalus.abomed7at55.quranplayer.Networking.Networking;
-import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Widget.PlayerWidget;
-
-import java.io.IOException;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +30,6 @@ import static com.andalus.abomed7at55.quranplayer.Utils.LanguageStorage.PREFEREN
 import static com.andalus.abomed7at55.quranplayer.Utils.LanguageStorage.getLanguage;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String DOWNLOAD_LINK ="http://server6.mp3quran.net/thubti/001.mp3";
     //final values
     private static final String IS_FIRST_RUN_KEY = "isFirst";
     private static final int FIRST_RUN = 0;
@@ -44,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     //Binding Views
     @BindView(R.id.btn_next_language)
     Button btnNextLanguage;
+    @BindView(R.id.adView)
+    AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*Downloader downloader = new Downloader(MainActivity.this,DOWNLOAD_LINK,"001");
-        downloader.startDownload();*/
         ButterKnife.bind(this);
+        MobileAds.initialize(this, getString(R.string.adKey));
 
         myAppWidgetManager = AppWidgetManager.getInstance(this);
         ids = myAppWidgetManager.getAppWidgetIds(new ComponentName(this, PlayerWidget.class));
@@ -133,8 +131,20 @@ public class MainActivity extends AppCompatActivity {
         //modifyRunCount();
         clearFragmentContainer();
         loadSheekhListFragment();
-        //hideNextButton();
+        hideNextButton();
+        showBannerAd();
     }
+
+    private void hideNextButton(){
+        btnNextLanguage.setVisibility(View.INVISIBLE);
+    }
+
+    private void showBannerAd(){
+        mAdView.setVisibility(View.VISIBLE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
