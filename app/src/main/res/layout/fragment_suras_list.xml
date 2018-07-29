@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SurasListFragment">
+    android:id="@+id/sura_fragment_layout"
+    tools:context=".SurasListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_suras_list"

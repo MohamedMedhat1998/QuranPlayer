@@ -3,10 +3,12 @@ package com.andalus.abomed7at55.quranplayer.Data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity
-public class FavoriteSura {
+public class FavoriteSura implements Parcelable{
 
     public static final String FAVORITE_SURA_ID = "favorite_sura_id";
     public static final String FAVORITE_SURA_NAME = "favorite_sura_name";
@@ -38,6 +40,28 @@ public class FavoriteSura {
 
     @ColumnInfo(name = FAVORITE_STREAMING_SERVER)
     private String mStreamingServer;
+
+    protected FavoriteSura(Parcel in) {
+        uniqueId = in.readInt();
+        mSuraId = in.readString();
+        mSuraName = in.readString();
+        mSheekhId = in.readString();
+        mSheekhName = in.readString();
+        mRewaya = in.readString();
+        mStreamingServer = in.readString();
+    }
+
+    public static final Creator<FavoriteSura> CREATOR = new Creator<FavoriteSura>() {
+        @Override
+        public FavoriteSura createFromParcel(Parcel in) {
+            return new FavoriteSura(in);
+        }
+
+        @Override
+        public FavoriteSura[] newArray(int size) {
+            return new FavoriteSura[size];
+        }
+    };
 
     @NonNull
     public int getUniqueId() {
@@ -80,5 +104,21 @@ public class FavoriteSura {
 
     public String getOfflineName(){
         return mSheekhName+" - "+mSuraName+" - "+mRewaya;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(uniqueId);
+        parcel.writeString(mSuraId);
+        parcel.writeString(mSuraName);
+        parcel.writeString(mSheekhId);
+        parcel.writeString(mSheekhName);
+        parcel.writeString(mRewaya);
+        parcel.writeString(mStreamingServer);
     }
 }

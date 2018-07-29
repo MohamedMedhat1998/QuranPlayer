@@ -12,22 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SurasListActivity" />
-        <activity android:name=".PlayerActivity" />
+        <activity android:name=".SurasListActivity" android:launchMode="singleTop" />
+        <activity android:name=".PlayerActivity" android:launchMode="singleTop" />
 
         <service android:name=".Utils.PlayerService" />
         <service android:name=".Widget.WidgetRemoteViewService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".OfflineActivity" />
-        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".OfflineActivity" android:launchMode="singleTop"/>
+        <activity android:name=".FavoriteActivity" android:launchMode="singleTop"/>
 
         <receiver android:name=".Widget.PlayerWidget">
             <intent-filter>

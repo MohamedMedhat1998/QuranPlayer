@@ -1,6 +1,7 @@
 package com.andalus.abomed7at55.quranplayer.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,6 +54,14 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_suras_list,container,false);
         ButterKnife.bind(this,view);
+        Log.d("SuraListLifeCycle","onCreateView (fragment)");
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("SuraListLifeCycle","onActivityCreated (fragment)");
         if(savedInstanceState==null){
             Log.d("Fragment","Sura Created");
             getLoaderManager().initLoader(ID,null,this);
@@ -62,7 +71,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
         }
-        return view;
     }
 
     @NonNull
@@ -105,5 +113,59 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("SuraListLifeCycle","onAttach (fragment)");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("SuraListLifeCycle","onCreate (fragment)");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("SuraListLifeCycle","onStart (fragment)");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("SuraListLifeCycle","onResume (fragment)");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("SuraListLifeCycle","onPause (fragment)");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("SuraListLifeCycle","onStop (fragment)");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("SuraListLifeCycle","onDestroyView (fragment)");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("SuraListLifeCycle","onDestroy (fragment)");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("SuraListLifeCycle","onDetach (fragment)");
     }
 }

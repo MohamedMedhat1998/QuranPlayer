@@ -23,6 +23,9 @@ import butterknife.ButterKnife;
 public class OfflineActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<OfflineSura>>,OnOfflineSuraClickListener {
 
     private static final int LOADER_ID = 55;
+    private static final String OFFLINE_SURA_ARRAY_LIST_KEY = "off_su_al_key";
+
+    private ArrayList<OfflineSura> mData;
 
     @BindView(R.id.rv_offline_sura_list)
     RecyclerView rvOfflineSuraList;
@@ -32,7 +35,13 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
         ButterKnife.bind(this);
-        getSupportLoaderManager().initLoader(LOADER_ID,null,this).forceLoad();
+        if(savedInstanceState==null){
+            getSupportLoaderManager().initLoader(LOADER_ID,null,this).forceLoad();
+        }else{
+            mData = savedInstanceState.getParcelableArrayList(OFFLINE_SURA_ARRAY_LIST_KEY);
+            rvOfflineSuraList.setLayoutManager(new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false));
+            rvOfflineSuraList.setAdapter(new OfflineListAdapter(mData,this));
+        }
     }
 
     @NonNull
@@ -43,8 +52,9 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<OfflineSura>> loader, ArrayList<OfflineSura> data) {
+        mData = data;
         rvOfflineSuraList.setLayoutManager(new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false));
-        rvOfflineSuraList.setAdapter(new OfflineListAdapter(data,this));
+        rvOfflineSuraList.setAdapter(new OfflineListAdapter(mData,this));
     }
 
     @Override
@@ -64,5 +74,11 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
         i.putExtra(OfflineSura.OFFLINE_REWAYA,rewaya);
         i.putExtra(OfflineSura.OFFLINE_FILE_NAME,suraId*1000+sheekhId+"");
         startActivity(i);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(OFFLINE_SURA_ARRAY_LIST_KEY,mData);
     }
 }

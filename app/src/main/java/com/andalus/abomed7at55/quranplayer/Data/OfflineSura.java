@@ -3,10 +3,12 @@ package com.andalus.abomed7at55.quranplayer.Data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity
-public class OfflineSura {
+public class OfflineSura implements Parcelable{
     public static final String OFFLINE_SURA_ID = "offline_sura_id";
     public static final String OFFLINE_SURA_NAME = "offline_sura_name";
 
@@ -42,6 +44,29 @@ public class OfflineSura {
 
     @ColumnInfo(name = OFFLINE_FILE_NAME)
     private String mOfflineFileName;
+
+    protected OfflineSura(Parcel in) {
+        uniqueId = in.readInt();
+        mSuraId = in.readString();
+        mSuraName = in.readString();
+        mSheekhId = in.readString();
+        mSheekhName = in.readString();
+        mRewaya = in.readString();
+        mStreamingPath = in.readString();
+        mOfflineFileName = in.readString();
+    }
+
+    public static final Creator<OfflineSura> CREATOR = new Creator<OfflineSura>() {
+        @Override
+        public OfflineSura createFromParcel(Parcel in) {
+            return new OfflineSura(in);
+        }
+
+        @Override
+        public OfflineSura[] newArray(int size) {
+            return new OfflineSura[size];
+        }
+    };
 
     @NonNull
     public int getUniqueId() {
@@ -85,5 +110,22 @@ public class OfflineSura {
 
     public String getOfflineFileName(){
         return mOfflineFileName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(uniqueId);
+        parcel.writeString(mSuraId);
+        parcel.writeString(mSuraName);
+        parcel.writeString(mSheekhId);
+        parcel.writeString(mSheekhName);
+        parcel.writeString(mRewaya);
+        parcel.writeString(mStreamingPath);
+        parcel.writeString(mOfflineFileName);
     }
 }

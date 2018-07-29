@@ -30,16 +30,25 @@ import butterknife.ButterKnife;
 public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<FavoriteSura>>,OnFavoriteSuraClickListener {
 
     private static final int LOADER_ID = 45;
+    private static final String FAVORITE_SURA_LIST_KEY = "fav_su_li_k";
 
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
+
+    private ArrayList<FavoriteSura> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         ButterKnife.bind(this);
-        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
+        if(savedInstanceState==null){
+            getSupportLoaderManager().initLoader(LOADER_ID,null,this);
+        }else{
+            mData = savedInstanceState.getParcelableArrayList(FAVORITE_SURA_LIST_KEY);
+            rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            rvFavoriteList.setAdapter(new FavoriteListAdapter(mData,this));
+        }
     }
 
     @NonNull
@@ -50,8 +59,9 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<FavoriteSura>> loader, ArrayList<FavoriteSura> data) {
+        mData = data;
         rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rvFavoriteList.setAdapter(new FavoriteListAdapter(data,this));
+        rvFavoriteList.setAdapter(new FavoriteListAdapter(mData,this));
     }
 
     @Override
@@ -71,5 +81,11 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         i.putExtra(FavoriteSura.FAVORITE_REWAYA,rewaya);
         i.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_FAVORITE_LIST);
         startActivity(i);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(FAVORITE_SURA_LIST_KEY,mData);
     }
 }
