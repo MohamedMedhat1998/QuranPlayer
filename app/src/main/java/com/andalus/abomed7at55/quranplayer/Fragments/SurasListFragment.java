@@ -12,6 +12,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import butterknife.ButterKnife;
 public class SurasListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,OnSuraClickListener {
 
     private static final int ID = 10;
+    private static final String SURA_ARRAY_LIST_KEY = "sura_key";
 
     @BindView(R.id.rv_suras_list)
     RecyclerView rvSurasList;
@@ -44,12 +46,22 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     private ArrayList<Integer> mSurasIds;
     private String mStreamingServerRoot;
 
+    ArrayList<Sura> mSuraArrayList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_suras_list,container,false);
         ButterKnife.bind(this,view);
-        getLoaderManager().initLoader(ID,null,this);
+        if(savedInstanceState==null){
+            Log.d("Fragment","Sura Created");
+            getLoaderManager().initLoader(ID,null,this);
+        }else {
+            Log.d("Fragment","Sura From Bundle");
+            mSuraArrayList = savedInstanceState.getParcelableArrayList(SURA_ARRAY_LIST_KEY);
+            rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
+        }
         return view;
     }
 
@@ -65,9 +77,9 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         try {
             mSurasIds = getArguments().getIntegerArrayList(Sura.IDS_KEY);
             mStreamingServerRoot = getArguments().getString(Sura.STREAMING_SERVER_ROOT_KEY);
-            ArrayList<Sura> suraArrayList = JsonParser.parseSura(data,mSurasIds,mStreamingServerRoot);
+            mSuraArrayList = JsonParser.parseSura(data,mSurasIds,mStreamingServerRoot);
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rvSurasList.setAdapter(new SurasListAdapter(suraArrayList,this));
+            rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -87,5 +99,11 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         i.putExtra(Sheekh.REWAYA_KEY,getArguments().getString(Sheekh.REWAYA_KEY));
         i.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_SURA_LIST);
         startActivity(i);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
     }
 }
