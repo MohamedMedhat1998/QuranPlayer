@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,12 +37,18 @@ public class MainActivity extends AppCompatActivity {
     private static final String IS_FIRST_RUN_KEY = "isFirst";
     private static final int FIRST_RUN = 0;
     private static final int NOT_FIRST_RUN = 10;
+    private static final String LANGUAGE_FRAGMENT_KEY = "lang_frag";
+    private static final String SHEEKH_LIST_FRAGMENT_KEY = "sheekh_frag";
 
     //Binding Views
     @BindView(R.id.btn_next_language)
     Button btnNextLanguage;
     @BindView(R.id.adView)
     AdView mAdView;
+
+    private LanguageFragment mLanguageFragment;
+    private SheekhListFragment mSheekhListFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +61,17 @@ public class MainActivity extends AppCompatActivity {
         if(isFirstRun()){
             if(savedInstanceState == null){
                 loadLanguageFragment();
+            }else{
+                mLanguageFragment = (LanguageFragment) getSupportFragmentManager().getFragment(savedInstanceState,LANGUAGE_FRAGMENT_KEY);
             }
         }else{
             if(savedInstanceState == null){
                 loadSheekhListFragment();
+            }else {
+                mSheekhListFragment = (SheekhListFragment) getSupportFragmentManager().getFragment(savedInstanceState,SHEEKH_LIST_FRAGMENT_KEY);
             }
+            hideNextButton();
+            showBannerAd();
         }
 
     }
@@ -91,16 +106,16 @@ public class MainActivity extends AppCompatActivity {
      * Loads the language fragment in the fragment container in the MainActivity
      */
     private void loadLanguageFragment(){
-        LanguageFragment languageFragment = new LanguageFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_main_activity,languageFragment).commit();
+        mLanguageFragment = new LanguageFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_main_activity,mLanguageFragment).commit();
     }
 
     /**
      * Loads the sheekh list fragment in the fragment container in the MainActivity
      */
     private void loadSheekhListFragment() {
-        SheekhListFragment sheekhListFragment = new SheekhListFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_main_activity,sheekhListFragment).commit();
+        mSheekhListFragment = new SheekhListFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_main_activity,mSheekhListFragment).commit();
     }
 
     /**
@@ -129,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     void onNextButtonClicked(){
         runPreferenceLanguageProcess();
         //TODO uncomment this before submitting
-        //modifyRunCount();
+        modifyRunCount();
         clearFragmentContainer();
         loadSheekhListFragment();
         hideNextButton();
@@ -166,4 +181,27 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        int fragmentsSize = fragments.size();
+
+        for(int i = 0; i < fragmentsSize ; i++){
+            if(fragments.get(i) instanceof LanguageFragment){
+                getSupportFragmentManager().putFragment(outState,LANGUAGE_FRAGMENT_KEY,mLanguageFragment);
+                break;
+            }
+        }
+
+        for(int i = 0; i < fragmentsSize ; i++){
+            if(fragments.get(i) instanceof SheekhListFragment){
+                getSupportFragmentManager().putFragment(outState,SHEEKH_LIST_FRAGMENT_KEY,mSheekhListFragment);
+                break;
+            }
+        }
+    }
+
 }

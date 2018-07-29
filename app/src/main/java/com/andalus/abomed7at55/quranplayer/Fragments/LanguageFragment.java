@@ -33,4 +33,6 @@ public class LanguageFragment extends Fragment {
         rgLanguages.check(LanguageStorage.getRadioButtonId(language));
         return view;
     }
+
+
 }

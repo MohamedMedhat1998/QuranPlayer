@@ -1,9 +1,12 @@
 package com.andalus.abomed7at55.quranplayer.Objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Sheekh {
+public class Sheekh implements Parcelable{
     private String mName;
     private String mServer;
     private String mRewaya;
@@ -23,6 +26,26 @@ public class Sheekh {
         mCount = count;
         mSurasIds = new ArrayList<>(Arrays.asList(convertSurasString(suras)));
     }
+
+    protected Sheekh(Parcel in) {
+        mName = in.readString();
+        mServer = in.readString();
+        mRewaya = in.readString();
+        mCount = in.readInt();
+        mId = in.readLong();
+    }
+
+    public static final Creator<Sheekh> CREATOR = new Creator<Sheekh>() {
+        @Override
+        public Sheekh createFromParcel(Parcel in) {
+            return new Sheekh(in);
+        }
+
+        @Override
+        public Sheekh[] newArray(int size) {
+            return new Sheekh[size];
+        }
+    };
 
     private Integer[] convertSurasString(String suras){
         String surasArray[] = suras.split(",");
@@ -56,5 +79,19 @@ public class Sheekh {
 
     public ArrayList<Integer> getSurasIds() {
         return mSurasIds;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mName);
+        parcel.writeString(mServer);
+        parcel.writeString(mRewaya);
+        parcel.writeInt(mCount);
+        parcel.writeLong(mId);
     }
 }

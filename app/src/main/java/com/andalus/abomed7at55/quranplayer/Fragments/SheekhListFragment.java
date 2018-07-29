@@ -11,6 +11,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,17 +38,31 @@ import butterknife.ButterKnife;
 public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,OnSheekhItemClickListener {
 
     private static final int ID = 5;
+    private static final String SHEEKH_ARRAY_LIST_KEY = "sheekh_list";
 
     @BindView(R.id.rv_sheekh_list)
     RecyclerView rvSheekhList;
+
+    private ArrayList<Sheekh> mSheekhArrayList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sheekh_list,container,false);
         ButterKnife.bind(this,view);
-        getLoaderManager().initLoader(ID,null,this);
+        if(savedInstanceState == null){
+            getLoaderManager().initLoader(ID,null,this);
+        }else{
+            mSheekhArrayList = savedInstanceState.getParcelableArrayList(SHEEKH_ARRAY_LIST_KEY);
+            rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            rvSheekhList.setAdapter(new SheekhListAdapter(mSheekhArrayList,this));
+        }
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @NonNull
@@ -61,8 +76,8 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         try {
-            ArrayList<Sheekh> sheekhArrayList = JsonParser.parseSheekhs(data);
-            rvSheekhList.setAdapter(new SheekhListAdapter(sheekhArrayList,this));
+            mSheekhArrayList = JsonParser.parseSheekhs(data);
+            rvSheekhList.setAdapter(new SheekhListAdapter(mSheekhArrayList,this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -83,5 +98,11 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
         i.putExtra(Sheekh.SHEEKH_NAME_KEY,sheekhName);
         i.putExtra(Sheekh.REWAYA_KEY,rewaya);
         startActivity(i);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(SHEEKH_ARRAY_LIST_KEY,mSheekhArrayList);
     }
 }
