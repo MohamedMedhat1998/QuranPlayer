@@ -40,6 +40,7 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
 
     private static final int ID = 10;
     private static final String SURA_ARRAY_LIST_KEY = "sura_key";
+    private static final String SCROLL_POSITION_KEY = "scroll_key";
 
     @BindView(R.id.rv_suras_list)
     RecyclerView rvSurasList;
@@ -47,7 +48,10 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     private ArrayList<Integer> mSurasIds;
     private String mStreamingServerRoot;
 
-    ArrayList<Sura> mSuraArrayList;
+    private ArrayList<Sura> mSuraArrayList;
+    private SurasListAdapter mSurasListAdapter;
+
+    private int mScrollPosition = 0;
 
     @Nullable
     @Override
@@ -60,9 +64,12 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             getLoaderManager().initLoader(ID,null,this);
         }else {
             Log.d("Fragment","Sura From Bundle");
+            mScrollPosition = savedInstanceState.getInt(SCROLL_POSITION_KEY);
             mSuraArrayList = savedInstanceState.getParcelableArrayList(SURA_ARRAY_LIST_KEY);
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
+            mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
+            rvSurasList.setAdapter(mSurasListAdapter);
+            rvSurasList.scrollToPosition(mScrollPosition);
         }
         return view;
     }
@@ -88,7 +95,9 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             mStreamingServerRoot = getArguments().getString(Sura.STREAMING_SERVER_ROOT_KEY);
             mSuraArrayList = JsonParser.parseSura(data,mSurasIds,mStreamingServerRoot);
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
+            mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
+            rvSurasList.setAdapter(mSurasListAdapter);
+            rvSurasList.scrollToPosition(mScrollPosition);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -115,6 +124,8 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         super.onSaveInstanceState(outState);
         Log.d("SuraListLifeCycle","onSaveInstanceState (fragment)");
         outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
+        mScrollPosition = mSurasListAdapter.getPosition();
+        outState.putInt(SCROLL_POSITION_KEY,mScrollPosition);
     }
 
     @Override

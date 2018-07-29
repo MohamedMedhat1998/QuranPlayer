@@ -38,12 +38,16 @@ import butterknife.ButterKnife;
 public class SheekhListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>,OnSheekhItemClickListener {
 
     private static final int ID = 5;
+    private static final String SCROLL_POSITION_KEY = "scroll_position";
     private static final String SHEEKH_ARRAY_LIST_KEY = "sheekh_list";
 
     @BindView(R.id.rv_sheekh_list)
     RecyclerView rvSheekhList;
 
     private ArrayList<Sheekh> mSheekhArrayList;
+    private SheekhListAdapter mSheekhListAdapter;
+
+    private int mScrollPosition = 0;
 
     @Nullable
     @Override
@@ -52,12 +56,15 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
         ButterKnife.bind(this,view);
         if(savedInstanceState == null){
             Log.d("Fragment","Sheekh Created");
+            rvSheekhList.scrollToPosition(mScrollPosition);
             getLoaderManager().initLoader(ID,null,this);
         }else{
+            mScrollPosition = savedInstanceState.getInt(SCROLL_POSITION_KEY);
             Log.d("Fragment","Sheekh From Bundle");
             mSheekhArrayList = savedInstanceState.getParcelableArrayList(SHEEKH_ARRAY_LIST_KEY);
             rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            rvSheekhList.setAdapter(new SheekhListAdapter(mSheekhArrayList,this));
+            mSheekhListAdapter = new SheekhListAdapter(mSheekhArrayList,this);
+            rvSheekhList.setAdapter(mSheekhListAdapter);
         }
         return view;
     }
@@ -80,7 +87,9 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
         rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         try {
             mSheekhArrayList = JsonParser.parseSheekhs(data);
-            rvSheekhList.setAdapter(new SheekhListAdapter(mSheekhArrayList,this));
+            mSheekhListAdapter = new SheekhListAdapter(mSheekhArrayList,this);
+            rvSheekhList.setAdapter(mSheekhListAdapter);
+            rvSheekhList.scrollToPosition(mScrollPosition);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -107,5 +116,7 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(SHEEKH_ARRAY_LIST_KEY,mSheekhArrayList);
+        mScrollPosition = mSheekhListAdapter.getPosition();
+        outState.putInt(SCROLL_POSITION_KEY,mScrollPosition);
     }
 }
