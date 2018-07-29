@@ -55,13 +55,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         View view = inflater.inflate(R.layout.fragment_suras_list,container,false);
         ButterKnife.bind(this,view);
         Log.d("SuraListLifeCycle","onCreateView (fragment)");
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("SuraListLifeCycle","onActivityCreated (fragment)");
         if(savedInstanceState==null){
             Log.d("Fragment","Sura Created");
             getLoaderManager().initLoader(ID,null,this);
@@ -71,6 +64,14 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             rvSurasList.setAdapter(new SurasListAdapter(mSuraArrayList,this));
         }
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("SuraListLifeCycle","onActivityCreated (fragment)");
+
     }
 
     @NonNull
@@ -112,6 +113,7 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.d("SuraListLifeCycle","onSaveInstanceState (fragment)");
         outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
     }
 

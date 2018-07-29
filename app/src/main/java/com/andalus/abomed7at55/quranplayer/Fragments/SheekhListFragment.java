@@ -50,13 +50,6 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sheekh_list,container,false);
         ButterKnife.bind(this,view);
-
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         if(savedInstanceState == null){
             Log.d("Fragment","Sheekh Created");
             getLoaderManager().initLoader(ID,null,this);
@@ -66,6 +59,13 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
             rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             rvSheekhList.setAdapter(new SheekhListAdapter(mSheekhArrayList,this));
         }
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @NonNull
