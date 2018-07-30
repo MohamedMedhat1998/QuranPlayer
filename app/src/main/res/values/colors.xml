@@ -4,8 +4,10 @@
     <color name="Black">#000000</color>
     <color name="Blue_50">#E3F2FD</color>
     <color name="Blue_A400">#2979FF</color>
+    <color name="BlueGray_900">#263238</color>
     <color name="Red_500">#F44336</color>
     <color name="Red_600">#E53935</color>
     <color name="Indigo_900">#1A237E</color>
     <color name="Indigo_800">#283593</color>
+    <color name="transparent">#00000000</color>
 </resources>

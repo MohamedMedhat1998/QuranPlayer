@@ -15,6 +15,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -75,8 +76,6 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     @BindView(R.id.btn_play)
     Button btnPlay;
-    @BindView(R.id.btn_pause)
-    Button btnPause;
     @BindView(R.id.btn_forward)
     Button btnForward;
     @BindView(R.id.btn_back)
@@ -91,10 +90,17 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     ImageButton ibFavoriteSwitch;
     @BindView(R.id.ib_download)
     ImageButton ibDownload;
+    @BindView(R.id.tv_player_sura_name)
+    TextView tvPlayerSuraName;
+    @BindView(R.id.tv_player_sheekh_name)
+    TextView tvPlayerSheekhName;
+    @BindView(R.id.tv_player_rewaya)
+    TextView tvPlayerRewaya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
 
@@ -102,14 +108,12 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
             canIPrepare = savedInstanceState.getInt(PREPARATION_KEY);
         }
 
-
         targetSura = getIntent().getExtras().getParcelable(Sura.SURA_OBJECT_KEY);
         mSeekBar.setOnSeekBarChangeListener(this);
         setFavoriteSuraArguments();
         getSupportLoaderManager().initLoader(IS_FAVORITE_LOADER_ID, null, this).forceLoad();
     }
 
-    //TODO put TAG Here to distinguish between different states
     private void setFavoriteSuraArguments() {
         String tag = getIntent().getExtras().getString(TAG);
         switch (tag) {
@@ -189,8 +193,11 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         mPlayerService.setOnAudioCompletionListener(PlayerActivity.this);
         tvDuration.setText(msToMilitary(mPlayerService.getDuration()));
         tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
+        tvPlayerSuraName.setText(suraName);
+        tvPlayerSheekhName.setText(sheekhName);
+        tvPlayerRewaya.setText(rewaya);
         mBound = true;
-
+        switchPlayPauseIcon();
         runnable = new Runnable() {
             int x;
             double y;
@@ -263,15 +270,20 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     void onPlayClicked() {
         handler.postDelayed(runnable, 0);
         if (mBound) {
-            mPlayerService.playMedia();
+            if(!mPlayerService.isPlaying()){
+                mPlayerService.playMedia();
+            }else{
+                mPlayerService.pauseMedia();
+            }
+            switchPlayPauseIcon();
         }
     }
 
-    @OnClick(R.id.btn_pause)
-    void onPauseClicked() {
-        handler.removeCallbacks(runnable);
-        if (mBound) {
-            mPlayerService.pauseMedia();
+    private void switchPlayPauseIcon(){
+        if(mPlayerService.isPlaying()){
+            btnPlay.setText("Pause");
+        }else{
+            btnPlay.setText("Play");
         }
     }
 

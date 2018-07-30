@@ -82,8 +82,11 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
     }
 
     public void playMedia(){
-
         mMediaPlayer.start();
+    }
+
+    public boolean isPlaying(){
+        return mMediaPlayer.isPlaying();
     }
 
     public void pauseMedia(){
