@@ -7,4 +7,9 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="round_angle">10dp</dimen>
+    <dimen name="subtitle">24sp</dimen>
+    <dimen name="buttons">16sp</dimen>
+    <dimen name="normal">14sp</dimen>
+    <dimen name="scroll_view_margins">16dp</dimen>
 </resources>

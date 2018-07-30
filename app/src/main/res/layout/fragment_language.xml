@@ -4,8 +4,10 @@
     android:layout_height="match_parent"
     android:id="@+id/language_fragment_layout"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.LanguageFragment">
+
     <TextView
         android:id="@+id/tv_language_label"
         android:layout_width="wrap_content"
@@ -13,7 +15,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:gravity="center"
         android:text="@string/language_label"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/subtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,11 +27,8 @@
         android:id="@+id/sv_languages"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/scroll_view_margins"
+        android:layout_marginBottom="@dimen/scroll_view_margins"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

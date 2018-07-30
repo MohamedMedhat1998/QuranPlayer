@@ -66,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }else{
             if(savedInstanceState == null){
-                Log.d("MyActivity","Main created");
                 loadSheekhListFragment();
             }else {
                 mSheekhListFragment = (SheekhListFragment) getSupportFragmentManager().getFragment(savedInstanceState,SHEEKH_LIST_FRAGMENT_KEY);
-                Log.d("MyActivity","Main from bundle");
             }
             hideNextButton();
             showBannerAd();
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideNextButton(){
-        btnNextLanguage.setVisibility(View.INVISIBLE);
+        btnNextLanguage.setVisibility(View.GONE);
     }
 
     private void showBannerAd(){
