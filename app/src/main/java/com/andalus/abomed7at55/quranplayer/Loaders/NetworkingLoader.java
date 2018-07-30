@@ -19,6 +19,7 @@ public class NetworkingLoader extends AsyncTaskLoader<String> {
     public NetworkingLoader(Context context , String dataSourceApi) {
         super(context);
         api = dataSourceApi;
+        forceLoad();
     }
 
     @Override
@@ -35,6 +36,5 @@ public class NetworkingLoader extends AsyncTaskLoader<String> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        forceLoad();
     }
 }

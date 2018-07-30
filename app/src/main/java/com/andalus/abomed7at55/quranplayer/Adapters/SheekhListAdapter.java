@@ -21,7 +21,6 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
     private ArrayList<Sheekh> mData;
     private OnSheekhItemClickListener mSheekhItemClickListener;
 
-    private int position;
 
     public SheekhListAdapter(ArrayList<Sheekh> data , OnSheekhItemClickListener sheekhItemClickListener){
         mData = data;
@@ -63,7 +62,6 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    position = getAdapterPosition();
                     mSheekhItemClickListener.onSheekhItemClicked(mData.get(getAdapterPosition()).getSurasIds(),
                             mData.get(getAdapterPosition()).getServer(),
                             (int) mData.get(getAdapterPosition()).getId(),
@@ -74,7 +72,4 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
         }
     }
 
-    public int getPosition(){
-        return position;
-    }
 }

@@ -51,7 +51,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     private ArrayList<Sura> mSuraArrayList;
     private SurasListAdapter mSurasListAdapter;
 
-    private int mScrollPosition = 0;
 
     @Nullable
     @Override
@@ -64,12 +63,10 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             getLoaderManager().initLoader(ID,null,this);
         }else {
             Log.d("Fragment","Sura From Bundle");
-            mScrollPosition = savedInstanceState.getInt(SCROLL_POSITION_KEY);
             mSuraArrayList = savedInstanceState.getParcelableArrayList(SURA_ARRAY_LIST_KEY);
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
             rvSurasList.setAdapter(mSurasListAdapter);
-            rvSurasList.scrollToPosition(mScrollPosition);
         }
         return view;
     }
@@ -97,7 +94,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
             rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
             rvSurasList.setAdapter(mSurasListAdapter);
-            rvSurasList.scrollToPosition(mScrollPosition);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -124,8 +120,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
         super.onSaveInstanceState(outState);
         Log.d("SuraListLifeCycle","onSaveInstanceState (fragment)");
         outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
-        mScrollPosition = mSurasListAdapter.getPosition();
-        outState.putInt(SCROLL_POSITION_KEY,mScrollPosition);
     }
 
     @Override

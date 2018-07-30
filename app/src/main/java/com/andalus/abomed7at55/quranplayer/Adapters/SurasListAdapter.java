@@ -20,7 +20,6 @@ public class SurasListAdapter extends RecyclerView.Adapter<SurasListAdapter.Sura
 
     private ArrayList<Sura> mData;
     private OnSuraClickListener mOnSuraClickListener;
-    private int position = 0;
 
     public SurasListAdapter(ArrayList<Sura> data,OnSuraClickListener onSuraClickListener){
         mData = data;
@@ -57,14 +56,10 @@ public class SurasListAdapter extends RecyclerView.Adapter<SurasListAdapter.Sura
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    position = getAdapterPosition();
                     mOnSuraClickListener.onSuraClick(mData.get(getAdapterPosition()));
                 }
             });
         }
     }
 
-    public int getPosition(){
-        return position;
-    }
 }
