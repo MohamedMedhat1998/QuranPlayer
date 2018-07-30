@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:id="@+id/language_fragment_layout"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/Blue_50"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.LanguageFragment">
 
