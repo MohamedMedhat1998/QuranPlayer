@@ -65,7 +65,7 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
                     mOnFavoriteSuraClickListener.onFavoriteSuraClick(Integer.parseInt(tempSura.getSuraId()),
                             tempSura.getSuraName(),
                             Integer.parseInt(tempSura.getSheekhId()),
-                            tempSura.getSuraName(),
+                            tempSura.getSheekhName(),
                             tempSura.getStreamingServer(),
                             tempSura.getRewaya());
                 }

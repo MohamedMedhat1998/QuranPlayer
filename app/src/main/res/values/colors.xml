@@ -10,4 +10,5 @@
     <color name="Indigo_900">#1A237E</color>
     <color name="Indigo_800">#283593</color>
     <color name="transparent">#00000000</color>
+    <color name="Black_alpha">#69000000</color>
 </resources>
