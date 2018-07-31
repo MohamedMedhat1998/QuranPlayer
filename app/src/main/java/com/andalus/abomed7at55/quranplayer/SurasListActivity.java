@@ -18,13 +18,10 @@ public class SurasListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suras_list);
-        Log.d("SuraListLifeCycle","onCreate");
         if(savedInstanceState == null){
             loadSurasListFragment();
-            Log.d("MyActivity","SuraList created");
         }else{
             mSurasListFragment = (SurasListFragment) getSupportFragmentManager().getFragment(savedInstanceState,SURA_LIST_FRAGMENT_KEY);
-            Log.d("MyActivity","SuraList from bundle");
         }
     }
 
@@ -43,43 +40,8 @@ public class SurasListActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("SuraListLifeCycle","onSavedInstanceState");
         getSupportFragmentManager().putFragment(outState,SURA_LIST_FRAGMENT_KEY,mSurasListFragment);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("SuraListLifeCycle","onPause");
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("SuraListLifeCycle","onStop");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d("SuraListLifeCycle","onRestart");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("SuraListLifeCycle","onDestroy");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("SuraListLifeCycle","onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("SuraListLifeCycle","onResume");
-    }
 }

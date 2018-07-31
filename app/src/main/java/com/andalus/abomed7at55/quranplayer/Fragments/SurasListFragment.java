@@ -4,6 +4,8 @@ package com.andalus.abomed7at55.quranplayer.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -17,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.SurasListAdapter;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnSuraClickListener;
@@ -40,10 +44,15 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
 
     private static final int ID = 10;
     private static final String SURA_ARRAY_LIST_KEY = "sura_key";
-    private static final String SCROLL_POSITION_KEY = "scroll_key";
+
+    private Context mContext;
 
     @BindView(R.id.rv_suras_list)
     RecyclerView rvSurasList;
+    @BindView(R.id.pb_sura_list_indicator)
+    ProgressBar pbSuraListIndicator;
+    @BindView(R.id.tv_sura_list_no_internet)
+    TextView tvSuraListNoInternet;
 
     private ArrayList<Integer> mSurasIds;
     private String mStreamingServerRoot;
@@ -56,17 +65,24 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_suras_list,container,false);
+        mContext = view.getContext();
         ButterKnife.bind(this,view);
-        Log.d("SuraListLifeCycle","onCreateView (fragment)");
         if(savedInstanceState==null){
-            Log.d("Fragment","Sura Created");
-            getLoaderManager().initLoader(ID,null,this);
+            if(isOnline()){
+                getLoaderManager().initLoader(ID,null,this);
+            }else{
+                tvSuraListNoInternet.setVisibility(View.VISIBLE);
+            }
         }else {
-            Log.d("Fragment","Sura From Bundle");
             mSuraArrayList = savedInstanceState.getParcelableArrayList(SURA_ARRAY_LIST_KEY);
-            rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
-            rvSurasList.setAdapter(mSurasListAdapter);
+            if(mSuraArrayList!=null){
+                rvSurasList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                mSurasListAdapter = new SurasListAdapter(mSuraArrayList,this);
+                rvSurasList.setAdapter(mSurasListAdapter);
+            }else{
+                pbSuraListIndicator.setVisibility(View.VISIBLE);
+                getLoaderManager().initLoader(ID,null,this);
+            }
         }
         return view;
     }
@@ -74,7 +90,6 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("SuraListLifeCycle","onActivityCreated (fragment)");
 
     }
 
@@ -82,12 +97,14 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        pbSuraListIndicator.setVisibility(View.VISIBLE);
         return new NetworkingLoader(getContext(), UrlBuilder.buildSurasNamesUrl(preferences.getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,null)));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         try {
+            pbSuraListIndicator.setVisibility(View.INVISIBLE);
             mSurasIds = getArguments().getIntegerArrayList(Sura.IDS_KEY);
             mStreamingServerRoot = getArguments().getString(Sura.STREAMING_SERVER_ROOT_KEY);
             mSuraArrayList = JsonParser.parseSura(data,mSurasIds,mStreamingServerRoot);
@@ -118,61 +135,13 @@ public class SurasListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("SuraListLifeCycle","onSaveInstanceState (fragment)");
         outState.putParcelableArrayList(SURA_ARRAY_LIST_KEY,mSuraArrayList);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d("SuraListLifeCycle","onAttach (fragment)");
+    private boolean isOnline(){
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("SuraListLifeCycle","onCreate (fragment)");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("SuraListLifeCycle","onStart (fragment)");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("SuraListLifeCycle","onResume (fragment)");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("SuraListLifeCycle","onPause (fragment)");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("SuraListLifeCycle","onStop (fragment)");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("SuraListLifeCycle","onDestroyView (fragment)");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("SuraListLifeCycle","onDestroy (fragment)");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("SuraListLifeCycle","onDetach (fragment)");
-    }
 }

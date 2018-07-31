@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     void onNextButtonClicked(){
         runPreferenceLanguageProcess();
         //TODO uncomment this before submitting
-        //modifyRunCount();
+        modifyRunCount();
         clearFragmentContainer();
         loadSheekhListFragment();
         hideNextButton();

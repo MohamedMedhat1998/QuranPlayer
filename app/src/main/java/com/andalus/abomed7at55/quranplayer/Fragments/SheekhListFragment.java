@@ -1,7 +1,10 @@
 package com.andalus.abomed7at55.quranplayer.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -15,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.SheekhListAdapter;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnSheekhItemClickListener;
@@ -43,25 +48,43 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
 
     @BindView(R.id.rv_sheekh_list)
     RecyclerView rvSheekhList;
+    @BindView(R.id.pb_sheekh_list_indicator)
+    ProgressBar pbSheekhListIndicator;
+    @BindView(R.id.tv_sheekh_list_no_internet)
+    TextView tvSheekhListNoInternet;
 
     private ArrayList<Sheekh> mSheekhArrayList;
     private SheekhListAdapter mSheekhListAdapter;
+
+    private Context mContext;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sheekh_list,container,false);
+        mContext = view.getContext();
         ButterKnife.bind(this,view);
         if(savedInstanceState == null){
-            Log.d("Fragment","Sheekh Created");
-            getLoaderManager().initLoader(ID,null,this);
+            if(isOnline()){
+                getLoaderManager().initLoader(ID,null,this);
+            }else{
+                tvSheekhListNoInternet.setVisibility(View.VISIBLE);
+            }
         }else{
-            Log.d("Fragment","Sheekh From Bundle");
             mSheekhArrayList = savedInstanceState.getParcelableArrayList(SHEEKH_ARRAY_LIST_KEY);
-            rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            mSheekhListAdapter = new SheekhListAdapter(mSheekhArrayList,this);
-            rvSheekhList.setAdapter(mSheekhListAdapter);
+            if(mSheekhArrayList!=null){
+                rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                mSheekhListAdapter = new SheekhListAdapter(mSheekhArrayList,this);
+                rvSheekhList.setAdapter(mSheekhListAdapter);
+            }else{
+                if(isOnline()){
+                    getLoaderManager().initLoader(ID,null,this);
+                    pbSheekhListIndicator.setVisibility(View.VISIBLE);
+                }else{
+                    tvSheekhListNoInternet.setVisibility(View.VISIBLE);
+                }
+            }
         }
         return view;
     }
@@ -76,12 +99,14 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        pbSheekhListIndicator.setVisibility(View.VISIBLE);
         return new NetworkingLoader(getContext(), UrlBuilder.buildLanguageUrl(preferences.getString(LanguageStorage.PREFERENCE_LANGUAGE_KEY,null)));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         rvSheekhList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        pbSheekhListIndicator.setVisibility(View.INVISIBLE);
         try {
             mSheekhArrayList = JsonParser.parseSheekhs(data);
             mSheekhListAdapter = new SheekhListAdapter(mSheekhArrayList,this);
@@ -113,4 +138,11 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(SHEEKH_ARRAY_LIST_KEY,mSheekhArrayList);
     }
+
+    private boolean isOnline(){
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
 }
