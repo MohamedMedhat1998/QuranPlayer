@@ -16,6 +16,8 @@ import com.andalus.abomed7at55.quranplayer.R;
  */
 public class PlayerWidget extends AppWidgetProvider {
 
+    private static final int PENDING_INTENT_REQUEST_CODE = 5;
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         Log.d("PlayerWidget","updateAppWidget");
@@ -25,10 +27,13 @@ public class PlayerWidget extends AppWidgetProvider {
 
         Intent i = new Intent(context,WidgetRemoteViewService.class);
         views.setRemoteAdapter(R.id.widget_player_grid_view,i);
+        views.setEmptyView(R.id.widget_player_grid_view,R.id.widget_empty_state);
 
         Intent playerActivityIntent = new Intent(context, PlayerActivity.class);
-        PendingIntent playerActivityPendingIntent = PendingIntent.getActivity(context,5,playerActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent playerActivityPendingIntent = PendingIntent.getActivity(context,PENDING_INTENT_REQUEST_CODE,playerActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_player_grid_view,playerActivityPendingIntent);
+
+
 
         // Instruct the widget manager to update the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_player_grid_view);

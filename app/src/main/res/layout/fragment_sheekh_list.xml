@@ -42,6 +42,8 @@
     <TextView
         android:id="@+id/tv_sheekh_list_no_internet"
         android:layout_width="wrap_content"
+        android:textColor="@color/Red_900"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:text="@string/no_internet_message"
         android:visibility="invisible"

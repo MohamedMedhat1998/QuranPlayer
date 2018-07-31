@@ -178,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_offline:
                 startActivity(new Intent(MainActivity.this,OfflineActivity.class));
                 break;
+            case R.id.item_settings:
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                break;
         }
         return true;
     }

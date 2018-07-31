@@ -13,6 +13,8 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.FavoriteListAdapter;
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
@@ -34,6 +36,8 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
+    @BindView(R.id.tv_no_items_favorite_activity)
+    TextView tvNoItemsFavoriteActivity;
 
     private ArrayList<FavoriteSura> mData;
 
@@ -62,6 +66,9 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         mData = data;
         rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rvFavoriteList.setAdapter(new FavoriteListAdapter(mData,this));
+        if(mData.isEmpty()){
+            tvNoItemsFavoriteActivity.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

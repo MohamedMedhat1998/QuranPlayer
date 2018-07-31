@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.OfflineListAdapter;
 import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
@@ -29,6 +31,8 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
 
     @BindView(R.id.rv_offline_sura_list)
     RecyclerView rvOfflineSuraList;
+    @BindView(R.id.tv_no_items_offline_activity)
+    TextView tvNoItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,9 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
         mData = data;
         rvOfflineSuraList.setLayoutManager(new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false));
         rvOfflineSuraList.setAdapter(new OfflineListAdapter(mData,this));
+        if(mData.isEmpty()){
+            tvNoItems.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -11,22 +11,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:launchMode="singleTop">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SurasListActivity" android:launchMode="singleTop" />
-        <activity android:name=".PlayerActivity" android:launchMode="singleTop" />
+        <activity
+            android:name=".SurasListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".PlayerActivity"
+            android:launchMode="singleTop" />
 
         <service android:name=".Utils.PlayerService" />
-        <service android:name=".Widget.WidgetRemoteViewService"
+        <service
+            android:name=".Widget.WidgetRemoteViewService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".OfflineActivity" android:launchMode="singleTop"/>
-        <activity android:name=".FavoriteActivity" android:launchMode="singleTop"/>
+        <activity
+            android:name=".OfflineActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:launchMode="singleTop" />
 
         <receiver android:name=".Widget.PlayerWidget">
             <intent-filter>
@@ -37,6 +48,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/player_widget_info" />
         </receiver>
+
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

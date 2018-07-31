@@ -5,7 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -15,9 +16,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,6 @@ import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 import com.andalus.abomed7at55.quranplayer.Utils.PlayerService;
 import com.andalus.abomed7at55.quranplayer.Widget.PlayerWidget;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//TODO Optimise and support savedInstantState
 public class PlayerActivity extends AppCompatActivity implements OnAudioCompletionListener, SeekBar.OnSeekBarChangeListener, LoaderManager.LoaderCallbacks<Boolean> {
 
     private static final int DATABASE_MODIFICATION_LOADER_ID = 20;
@@ -96,6 +96,10 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     TextView tvPlayerSheekhName;
     @BindView(R.id.tv_player_rewaya)
     TextView tvPlayerRewaya;
+    @BindView(R.id.pb_player_indicator)
+    ProgressBar pbPlayerIndicator;
+    @BindView(R.id.tv_player_no_internet)
+    TextView tvPlayerNoInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +107,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
-
+        disableButtons();
         if(savedInstanceState != null){
             canIPrepare = savedInstanceState.getInt(PREPARATION_KEY);
         }
@@ -153,10 +157,16 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     protected void onStart() {
         super.onStart();
         Intent i = new Intent(PlayerActivity.this, PlayerService.class);
-        Log.d("Streaming Server", streamingServer);
         i.putExtra(Sura.STREAMING_SERVER_KEY, streamingServer);
         try {
-            bindService(i, mServiceConnection, Context.BIND_AUTO_CREATE);
+            if(isOnline()){
+                bindService(i, mServiceConnection, Context.BIND_AUTO_CREATE);
+                if(mPlayerService == null){
+                    pbPlayerIndicator.setVisibility(View.VISIBLE);
+                }
+            }else{
+                tvPlayerNoInternet.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -174,7 +184,6 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 public void onPreparationFinished() {
                     prepareUI();
                     canIPrepare = YOU_CAN_PREPARE;
-                    Log.d("ServiceConnection","onPreparationFinished");
                 }
             });
             if(canIPrepare == YOU_CAN_PREPARE){
@@ -190,6 +199,8 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     };
 
     private void prepareUI(){
+        pbPlayerIndicator.setVisibility(View.INVISIBLE);
+        enableButtons();
         mPlayerService.setOnAudioCompletionListener(PlayerActivity.this);
         tvDuration.setText(msToMilitary(mPlayerService.getDuration()));
         tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
@@ -213,6 +224,22 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
         };
         handler.postDelayed(runnable, 0);
+    }
+
+    private void enableButtons(){
+        ibDownload.setEnabled(true);
+        ibFavoriteSwitch.setEnabled(true);
+        btnPlay.setEnabled(true);
+        btnBack.setEnabled(true);
+        btnForward.setEnabled(true);
+    }
+
+    private void disableButtons(){
+        ibDownload.setEnabled(false);
+        ibFavoriteSwitch.setEnabled(false);
+        btnPlay.setEnabled(false);
+        btnBack.setEnabled(false);
+        btnForward.setEnabled(false);
     }
 
     private String msToMilitary(int millis) {
@@ -250,9 +277,13 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         super.onDestroy();
         handler.removeCallbacks(runnable);
         if (isFinishing()) {
-            mPlayerService.resetMedia();
-            unbindService(mServiceConnection);
-            mBound = false;
+            try {
+                mPlayerService.resetMedia();
+                unbindService(mServiceConnection);
+                mBound = false;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -277,6 +308,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
             }
             switchPlayPauseIcon();
         }
+
     }
 
     private void switchPlayPauseIcon(){
@@ -306,7 +338,9 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     @Override
     public void onAudioCompletion() {
         try {
+            switchPlayPauseIcon();
             handler.removeCallbacks(runnable);
+            tvProgress.setText(tvDuration.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -383,5 +417,11 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(PREPARATION_KEY,canIPrepare);
+    }
+
+    private boolean isOnline(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }
