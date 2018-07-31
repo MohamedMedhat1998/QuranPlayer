@@ -27,7 +27,6 @@ public class Downloader {
         mPackageName = mContext.getPackageName();
         mFileName = fileName;
         mDownloadPath = Environment.getExternalStorageDirectory()+"/Android/data/"+mPackageName+"/files/downloads/";
-        Log.d("DOWNLOAD_PATH",mDownloadPath);
         mDownloadedFile = new File(mDownloadPath+mFileName);
         mDownloadLink = url;
     }
@@ -37,19 +36,9 @@ public class Downloader {
         mRequest = new DownloadManager.Request(mUri);
         DownloadManager.Request request = new DownloadManager.Request(mUri);
         request.setDestinationInExternalFilesDir(mContext,"/downloads",mFileName);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-        request.setTitle("Quran");
-        request.setDescription("Downloading selected sura");
         mDownloadManager.enqueue(request);
     }
-    public void setDownloadLink(String url){
-        mDownloadLink = url;
-    }
-    //-------------------------getters------------
-    public String getDownloadLink(){
-        return mDownloadLink;
-    }
-    public File getDownloadedFile(){ return mDownloadedFile;}
+
     public String getDownloadPath(){ return mDownloadPath;}
 }
 

@@ -75,11 +75,11 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private String rewaya;
 
     @BindView(R.id.btn_play)
-    Button btnPlay;
+    ImageButton btnPlay;
     @BindView(R.id.btn_forward)
-    Button btnForward;
+    ImageButton btnForward;
     @BindView(R.id.btn_back)
-    Button btnBack;
+    ImageButton btnBack;
     @BindView(R.id.seek_bar)
     SeekBar mSeekBar;
     @BindView(R.id.tv_progress)
@@ -281,9 +281,11 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
 
     private void switchPlayPauseIcon(){
         if(mPlayerService.isPlaying()){
-            btnPlay.setText("Pause");
+            //<div>Icons made by <a href="https://www.flaticon.com/authors/egor-rumyantsev" title="Egor Rumyantsev">Egor Rumyantsev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            btnPlay.setImageResource(R.drawable.pause);
         }else{
-            btnPlay.setText("Play");
+            //<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            btnPlay.setImageResource(R.drawable.play_button);
         }
     }
 
@@ -329,11 +331,13 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     }
 
     void turnOnStar() {
-        ibFavoriteSwitch.setImageResource(android.R.drawable.star_big_on);
+        //<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        ibFavoriteSwitch.setImageResource(R.drawable.star_fill);
     }
 
     void turnOffStar() {
-        ibFavoriteSwitch.setImageResource(android.R.drawable.star_big_off);
+        //<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        ibFavoriteSwitch.setImageResource(R.drawable.star_empty);
     }
 
     @NonNull

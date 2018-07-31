@@ -49,6 +49,7 @@ public class JsonParser {
         String tempStringId;
         int tempId;
         int it = 0;
+        String tempName;
         ArrayList<Sura> suras = new ArrayList<>();
         for (int i = 0 ; i < n ;i++){
             tempId = ids.get(i);
@@ -56,7 +57,11 @@ public class JsonParser {
             while(!tempStringId.equals(namesArray.getJSONObject(it).getString(ID_KEY))){
                 it++;
             }
-            suras.add(new Sura(tempId,namesArray.getJSONObject(it).getString(NAME_KEY), UrlBuilder.buildStreamingUrl(streamingServerRoot,tempId)));
+            tempName = namesArray.getJSONObject(it).getString(NAME_KEY);
+            if(tempName.charAt(tempName.length()-1)=='\n'){
+                tempName = tempName.substring(0,tempName.length()-2);
+            }
+            suras.add(new Sura(tempId,tempName, UrlBuilder.buildStreamingUrl(streamingServerRoot,tempId)));
         }
         return suras;
     }
