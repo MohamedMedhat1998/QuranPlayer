@@ -25,6 +25,7 @@
     <TextView
         android:id="@+id/tv_no_items_offline_activity"
         android:textColor="@color/Black"
+        android:contentDescription="@string/no_items_cd"
         android:text="@string/no_items"
         android:layout_width="wrap_content"
         android:visibility="invisible"

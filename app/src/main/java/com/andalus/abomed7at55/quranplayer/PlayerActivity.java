@@ -204,9 +204,15 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         mPlayerService.setOnAudioCompletionListener(PlayerActivity.this);
         tvDuration.setText(msToMilitary(mPlayerService.getDuration()));
         tvProgress.setText(msToMilitary(mPlayerService.getProgress()));
+
         tvPlayerSuraName.setText(suraName);
         tvPlayerSheekhName.setText(sheekhName);
         tvPlayerRewaya.setText(rewaya);
+
+        tvPlayerSuraName.setContentDescription(suraName);
+        tvPlayerSheekhName.setContentDescription(sheekhName);
+        tvPlayerRewaya.setContentDescription(rewaya);
+
         mBound = true;
         switchPlayPauseIcon();
         runnable = new Runnable() {

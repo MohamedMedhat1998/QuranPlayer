@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="@string/favorite"
         android:id="@+id/item_favorite"
+        android:contentDescription="@string/favorite_cd"
         app:showAsAction="never"/>
     <item android:title="@string/offline"
         android:id="@+id/item_offline"
+        android:contentDescription="@string/offline_cd"
         app:showAsAction="never"/>
     <item android:title="@string/settings"
+        android:contentDescription="@string/settings_cd"
         android:id="@+id/item_settings"
         app:showAsAction="never"/>
 </menu>

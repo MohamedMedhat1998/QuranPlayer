@@ -40,6 +40,10 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
         holder.tvSheekhName.setText(mData.get(position).getName());
         holder.tvRewaya.setText(mData.get(position).getRewaya());
         holder.tvSuraCount.setText(mData.get(position).getCount()+"");
+
+        holder.tvSheekhName.setContentDescription(mData.get(position).getName());
+        holder.tvRewaya.setContentDescription(mData.get(position).getRewaya());
+        holder.tvSuraCount.setContentDescription(mData.get(position).getCount()+"");
     }
 
     @Override

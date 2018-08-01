@@ -36,9 +36,14 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteIemViewHolder holder, int position) {
+
         holder.tvName.setText(mData.get(position).getSuraName());
         holder.tvRewaya.setText(mData.get(position).getRewaya());
         holder.tvSheekh.setText(mData.get(position).getSheekhName());
+
+        holder.tvName.setContentDescription(mData.get(position).getSuraName());
+        holder.tvRewaya.setContentDescription(mData.get(position).getRewaya());
+        holder.tvSheekh.setContentDescription(mData.get(position).getSheekhName());
     }
 
     @Override

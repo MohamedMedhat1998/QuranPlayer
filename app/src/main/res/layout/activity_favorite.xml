@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/tv_no_items_favorite_activity"
+        android:contentDescription="@string/no_items_cd"
         android:textColor="@color/Black"
         android:text="@string/no_items"
         android:layout_width="wrap_content"

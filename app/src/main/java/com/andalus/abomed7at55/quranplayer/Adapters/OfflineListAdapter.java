@@ -39,6 +39,10 @@ public class OfflineListAdapter extends RecyclerView.Adapter<OfflineListAdapter.
         holder.tvRewaya.setText(mData.get(position).getRewaya());
         holder.tvOfflineSuraName.setText(mData.get(position).getSuraName());
         holder.tvSheekhName.setText(mData.get(position).getSheekhName());
+
+        holder.tvRewaya.setContentDescription(mData.get(position).getRewaya());
+        holder.tvOfflineSuraName.setContentDescription(mData.get(position).getSuraName());
+        holder.tvSheekhName.setContentDescription(mData.get(position).getSheekhName());
     }
 
     @Override

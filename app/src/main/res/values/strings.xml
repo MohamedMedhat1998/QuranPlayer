@@ -15,8 +15,6 @@
     <string name="bosnian">bosanski</string>
     <string name="portuguese">Português</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
     <string name="indonesian">bahasa Indonesia</string>
     <string name="favorite">Favorite</string>
@@ -34,4 +32,21 @@
     <string name="download_started">Download Started</string>
     <string name="toolbar_title_transition">tool_bar_title_transition</string>
     <string name="toolbar_subtitle_transition">toolbar_subtitle_transition</string>
+    <string name="no_items_cd">No Items Indicator</string>
+    <string name="next_cd">Next</string>
+    <string name="advertisement_cd">Advertisement</string>
+    <string name="play_cd">Play button</string>
+    <string name="fast_forward_cd">Fast Forward</string>
+    <string name="rewind_cd">Rewind</string>
+    <string name="media_progress_indicator_cd">Media Progress Indicator</string>
+    <string name="play_time_cd">Current Play Time</string>
+    <string name="duration_cd">Total Duration</string>
+    <string name="add_to_favorite_cd">Add to favorite</string>
+    <string name="download_cd">Download</string>
+    <string name="no_internet_connection_cd">No Internet Connection</string>
+    <string name="done_cd">Done</string>
+    <string name="language_cd">Language</string>
+    <string name="favorite_cd">Favorite</string>
+    <string name="offline_cd">Offline</string>
+    <string name="settings_cd">Settings</string>
 </resources>

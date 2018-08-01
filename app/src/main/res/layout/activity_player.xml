@@ -12,6 +12,7 @@
     <!--<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     <ImageButton
         android:id="@+id/btn_play"
+        android:contentDescription="@string/play_cd"
         android:src="@drawable/play_button"
         android:layout_width="30dp"
         android:scaleType="fitXY"
@@ -29,6 +30,7 @@
     <!--<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     <ImageButton
         android:id="@+id/btn_forward"
+        android:contentDescription="@string/fast_forward_cd"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -47,6 +49,7 @@
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     <ImageButton
         android:id="@+id/btn_back"
+        android:contentDescription="@string/rewind_cd"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -64,6 +67,7 @@
 
     <SeekBar
         android:id="@+id/seek_bar"
+        android:contentDescription="@string/media_progress_indicator_cd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -77,6 +81,7 @@
 
     <TextView
         android:id="@+id/tv_progress"
+        android:contentDescription="@string/play_time_cd"
         android:layout_marginLeft="8dp"
         style="@style/progressTimeIndicatorStyle"
         android:layout_marginStart="8dp"
@@ -86,6 +91,7 @@
 
     <TextView
         android:id="@+id/tv_duration"
+        android:contentDescription="@string/duration_cd"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         style="@style/progressTimeIndicatorStyle"
@@ -96,6 +102,7 @@
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     <ImageButton
         android:id="@+id/ib_favorite_switch"
+        android:contentDescription="@string/add_to_favorite_cd"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -110,6 +117,7 @@
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     <ImageButton
         android:id="@+id/ib_download"
+        android:contentDescription="@string/download_cd"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -180,6 +188,7 @@
 
     <TextView
         android:id="@+id/tv_player_no_internet"
+        android:contentDescription="@string/no_internet_connection_cd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/Red_900"

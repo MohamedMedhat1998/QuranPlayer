@@ -34,6 +34,9 @@ public class SurasListActivity extends AppCompatActivity {
         tvToolbarSheekhName.setText(getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY));
         tvToolbarRewaya.setText(getIntent().getExtras().getString(Sheekh.REWAYA_KEY));
 
+        tvToolbarSheekhName.setContentDescription(getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY));
+        tvToolbarRewaya.setContentDescription(getIntent().getExtras().getString(Sheekh.REWAYA_KEY));
+
         if(savedInstanceState == null){
             loadSurasListFragment();
         }else{

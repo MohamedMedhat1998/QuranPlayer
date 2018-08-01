@@ -10,6 +10,7 @@
 
     <TextView
         android:id="@+id/tv_language_label"
+        android:contentDescription="@string/language_cd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -53,72 +54,86 @@
 
             <RadioButton
                 android:id="@+id/rb_arabic"
+                android:contentDescription="@string/arabic"
                 android:checked="true"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/arabic" />
 
             <RadioButton
                 android:id="@+id/rb_english"
+                android:contentDescription="@string/english"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/english" />
 
             <RadioButton
                 android:id="@+id/rb_french"
+                android:contentDescription="@string/french"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/french" />
 
             <RadioButton
                 android:id="@+id/rb_russian"
+                android:contentDescription="@string/russian"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/russian" />
 
             <RadioButton
                 android:id="@+id/rb_german"
+                android:contentDescription="@string/german"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/german" />
 
             <RadioButton
                 android:id="@+id/rb_spanish"
+                android:contentDescription="@string/spanish"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/spanish" />
 
             <RadioButton
                 android:id="@+id/rb_turkish"
+                android:contentDescription="@string/turkish"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/turkish" />
 
             <RadioButton
                 android:id="@+id/rb_chinese"
+                android:contentDescription="@string/chinese"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/chinese" />
 
             <RadioButton
                 android:id="@+id/rb_thai"
+                android:contentDescription="@string/thai"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/thai" />
 
             <RadioButton
                 android:id="@+id/rb_urdu"
+                android:contentDescription="@string/urdu"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/urdu" />
 
             <RadioButton
                 android:id="@+id/rb_bengali"
+                android:contentDescription="@string/bengali"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/bengali" />
 
             <RadioButton
                 android:id="@+id/rb_bosnian"
+                android:contentDescription="@string/bosnian"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/bosnian" />
 
             <RadioButton
                 android:id="@+id/rb_indonesian"
+                android:contentDescription="@string/indonesian"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/indonesian" />
 
             <RadioButton
                 android:id="@+id/rb_portuguese"
+                android:contentDescription="@string/portuguese"
                 style="@style/LanguageRadioButtonStyle"
                 android:text="@string/portuguese" />
 
