@@ -22,9 +22,11 @@
         </activity>
         <activity
             android:name=".SurasListActivity"
+            android:theme="@style/suraListTheme"
             android:launchMode="singleTop" />
         <activity
             android:name=".PlayerActivity"
+            android:theme="@style/playerActivityTheme"
             android:launchMode="singleTop" />
 
         <service android:name=".Utils.PlayerService" />

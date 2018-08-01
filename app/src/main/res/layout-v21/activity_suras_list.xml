@@ -25,11 +25,13 @@
                     android:id="@+id/tv_toolbar_sheekh_name"
                     style="@style/SheekhNameStyle"
                     android:textColor="@color/Black"
+                    android:transitionName="@string/toolbar_title_transition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     tools:text="Rewaya"
                     android:id="@+id/tv_toolbar_rewaya"
+                    android:transitionName="@string/toolbar_subtitle_transition"
                     android:textColor="@color/Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

@@ -66,7 +66,9 @@ public class SheekhListAdapter extends RecyclerView.Adapter<SheekhListAdapter.Sh
                             mData.get(getAdapterPosition()).getServer(),
                             (int) mData.get(getAdapterPosition()).getId(),
                             mData.get(getAdapterPosition()).getName(),
-                            mData.get(getAdapterPosition()).getRewaya());
+                            mData.get(getAdapterPosition()).getRewaya(),
+                            tvSheekhName,
+                            tvRewaya);
                 }
             });
         }

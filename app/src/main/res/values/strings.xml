@@ -31,4 +31,7 @@
     <string name="done">Done</string>
     <string name="restart_for_changes_message">Please Restart the app to see changes</string>
     <string name="no_items">No Items</string>
+    <string name="download_started">Download Started</string>
+    <string name="toolbar_title_transition">tool_bar_title_transition</string>
+    <string name="toolbar_subtitle_transition">toolbar_subtitle_transition</string>
 </resources>

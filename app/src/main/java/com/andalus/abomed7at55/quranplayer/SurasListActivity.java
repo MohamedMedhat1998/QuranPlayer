@@ -2,11 +2,17 @@ package com.andalus.abomed7at55.quranplayer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Window;
+import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Fragments.SurasListFragment;
 import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SurasListActivity extends AppCompatActivity {
 
@@ -14,10 +20,20 @@ public class SurasListActivity extends AppCompatActivity {
 
     private SurasListFragment mSurasListFragment;
 
+    @BindView(R.id.tv_toolbar_sheekh_name)
+    TextView tvToolbarSheekhName;
+    @BindView(R.id.tv_toolbar_rewaya)
+    TextView tvToolbarRewaya;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suras_list);
+        ButterKnife.bind(this);
+
+        tvToolbarSheekhName.setText(getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY));
+        tvToolbarRewaya.setText(getIntent().getExtras().getString(Sheekh.REWAYA_KEY));
+
         if(savedInstanceState == null){
             loadSurasListFragment();
         }else{

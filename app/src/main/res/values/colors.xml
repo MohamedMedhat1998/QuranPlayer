@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#ffffff</color>
     <color name="Black">#000000</color>
-    <color name="Blue_50">#E3F2FD</color>
+    <color name="Black_alpha">#69000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+
     <color name="Blue_A400">#2979FF</color>
     <color name="BlueGray_900">#263238</color>
+    <color name="Indigo_800">#283593</color>
+    <color name="Indigo_900">#1A237E</color>
+
     <color name="Red_500">#F44336</color>
     <color name="Red_600">#E53935</color>
     <color name="Red_900">#B71C1C</color>
-    <color name="Indigo_900">#1A237E</color>
-    <color name="Indigo_800">#283593</color>
-    <color name="transparent">#00000000</color>
-    <color name="Black_alpha">#69000000</color>
+
+    <color name="Orange_50">#FFF3E0</color>
+    <color name="Orange_500">#FF9800</color>
+    <color name="Orange_600">#FB8C00</color>
 </resources>

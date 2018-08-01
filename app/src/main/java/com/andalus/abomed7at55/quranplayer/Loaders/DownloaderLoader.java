@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.widget.Toast;
 
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
 import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
 import com.andalus.abomed7at55.quranplayer.Networking.Downloader;
+import com.andalus.abomed7at55.quranplayer.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class DownloaderLoader extends AsyncTaskLoader<Boolean> {
@@ -28,6 +30,7 @@ public class DownloaderLoader extends AsyncTaskLoader<Boolean> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
+        Toast.makeText(getContext(), R.string.download_started,Toast.LENGTH_LONG).show();
         forceLoad();
     }
 

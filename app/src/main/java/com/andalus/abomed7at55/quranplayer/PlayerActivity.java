@@ -397,9 +397,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 turnOffStar();
             }
         } else if (loader instanceof DownloaderLoader) {
-            if (data) {
-                Toast.makeText(getBaseContext(), R.string.download_successful, Toast.LENGTH_LONG).show();
-            } else {
+            if (!data) {
                 Toast.makeText(getBaseContext(), R.string.download_failed, Toast.LENGTH_LONG).show();
             }
             AppWidgetManager myAppWidgetManager = AppWidgetManager.getInstance(this);

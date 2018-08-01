@@ -1,6 +1,7 @@
 package com.andalus.abomed7at55.quranplayer.Networking;
 
 import android.app.DownloadManager;
+import android.app.Notification;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
@@ -29,14 +30,14 @@ public class Downloader {
         mDownloadPath = Environment.getExternalStorageDirectory()+"/Android/data/"+mPackageName+"/files/downloads/";
         mDownloadedFile = new File(mDownloadPath+mFileName);
         mDownloadLink = url;
+
     }
 
     public void startDownload(){
         mUri = Uri.parse(mDownloadLink);
         mRequest = new DownloadManager.Request(mUri);
-        DownloadManager.Request request = new DownloadManager.Request(mUri);
-        request.setDestinationInExternalFilesDir(mContext,"/downloads",mFileName);
-        mDownloadManager.enqueue(request);
+        mRequest.setDestinationInExternalFilesDir(mContext,"/downloads",mFileName);
+        mDownloadManager.enqueue(mRequest);
     }
 
     public String getDownloadPath(){ return mDownloadPath;}

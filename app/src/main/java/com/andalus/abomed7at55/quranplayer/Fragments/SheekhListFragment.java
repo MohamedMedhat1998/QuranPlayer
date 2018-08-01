@@ -1,5 +1,6 @@
 package com.andalus.abomed7at55.quranplayer.Fragments;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,14 +125,20 @@ public class SheekhListFragment extends Fragment implements LoaderManager.Loader
 
 
     @Override
-    public void onSheekhItemClicked(ArrayList<Integer> ids, String streamingServer,int sheekhId,String sheekhName,String rewaya) {
+    public void onSheekhItemClicked(ArrayList<Integer> ids, String streamingServer,int sheekhId,String sheekhName,String rewaya, TextView tvSheekhName,TextView tvRewaya) {
         Intent i = new Intent(getActivity(), SurasListActivity.class);
+        Bundle bundle = new Bundle();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+             bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                    new Pair<View, String>(tvSheekhName,getString(R.string.toolbar_title_transition)),
+                    new Pair<View, String>(tvRewaya,getString(R.string.toolbar_subtitle_transition))).toBundle();
+        }
         i.putExtra(Sura.IDS_KEY,ids);
         i.putExtra(Sura.STREAMING_SERVER_ROOT_KEY,streamingServer);
         i.putExtra(Sheekh.SHEEKH_ID_KEY,sheekhId);
         i.putExtra(Sheekh.SHEEKH_NAME_KEY,sheekhName);
         i.putExtra(Sheekh.REWAYA_KEY,rewaya);
-        startActivity(i);
+        startActivity(i,bundle);
     }
 
     @Override

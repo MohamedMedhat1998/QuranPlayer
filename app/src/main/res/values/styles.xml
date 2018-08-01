@@ -1,10 +1,8 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/Indigo_800</item>
-        <item name="colorPrimaryDark">@color/Indigo_900</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/Orange_500</item>
+        <item name="colorPrimaryDark">@color/Orange_600</item>
         <item name="colorAccent">@color/Blue_A400</item>
     </style>
 
@@ -47,6 +45,18 @@
     <style name="playerSuraNameStyle" parent="playerInfoText">
         <item name="android:textSize">@dimen/subtitle</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="suraListTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/Orange_500</item>
+        <item name="colorPrimaryDark">@color/Orange_600</item>
+        <item name="colorAccent">@color/Blue_A400</item>
+    </style>
+
+    <style name="playerActivityTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/Indigo_800</item>
+        <item name="colorPrimaryDark">@color/Black</item>
+        <item name="colorAccent">@color/Blue_A400</item>
     </style>
 
 </resources>
