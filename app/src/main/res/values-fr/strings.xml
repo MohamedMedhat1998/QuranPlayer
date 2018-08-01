@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="language_label">La langue</string>
+    <string name="language_cd">La langue</string>
+    <string name="app_name">Joueur du Coran</string>
+    <string name="next">Prochain</string>
+    <string name="next_cd">Prochain</string>
+    <string name="done_cd">Terminé</string>
+    <string name="done">Terminé</string>
+    <string name="favorite">Préféré</string>
+    <string name="favorite_cd">Préféré</string>
+    <string name="offline">Hors ligne</string>
+    <string name="offline_cd">Hors ligne</string>
+    <string name="settings">Paramètres</string>
+    <string name="settings_cd">Paramètres</string>
+    <string name="download_failed">Déjà téléchargé</string>
+    <string name="no_internet_message">S\'il vous plait, vérifiez votre connexion internet</string>
+    <string name="restart_for_changes_message">Veuillez redémarrer l\'application pour voir les modifications</string>
+    <string name="no_items">Pas d\'objet</string>
+    <string name="download_started">Téléchargement démarré</string>
+    <string name="no_items_cd">Indicateur d\'aucun article</string>
+    <string name="advertisement_cd">Publicité</string>
+    <string name="play_cd">Bouton de lecture</string>
+    <string name="fast_forward_cd">Avance rapide</string>
+    <string name="rewind_cd">Rembobiner</string>
+    <string name="media_progress_indicator_cd">Indicateur de progression des médias</string>
+    <string name="play_time_cd">Temps de jeu actuel</string>
+    <string name="duration_cd">Durée totale</string>
+    <string name="add_to_favorite_cd">Ajouter aux favoris</string>
+    <string name="download_cd">Téléchargement</string>
+    <string name="no_internet_connection_cd">Pas de connexion Internet</string>
+
+</resources>

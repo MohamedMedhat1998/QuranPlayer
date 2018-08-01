@@ -18,20 +18,25 @@
     <string name="toolbar_title_transition">tool_bar_title_transition</string>
     <string name="toolbar_subtitle_transition">toolbar_subtitle_transition</string>
 
-    <string name="language_label">Language</string>
     <string name="app_name">Quran Player</string>
+    <string name="language_label">Language</string>
+    <string name="language_cd">Language</string>
+    <string name="done_cd">Done</string>
+    <string name="done">Done</string>
     <string name="next">Next</string>
+    <string name="next_cd">Next</string>
     <string name="favorite">Favorite</string>
+    <string name="favorite_cd">Favorite</string>
     <string name="offline">Offline</string>
+    <string name="offline_cd">Offline</string>
+    <string name="settings">Settings</string>
+    <string name="settings_cd">Settings</string>
     <string name="download_failed">Already Downloaded</string>
     <string name="no_internet_message">Please Check Your Internet Connection</string>
-    <string name="settings">Settings</string>
-    <string name="done">Done</string>
     <string name="restart_for_changes_message">Please Restart the app to see changes</string>
     <string name="no_items">No Items</string>
     <string name="download_started">Download Started</string>
     <string name="no_items_cd">No Items Indicator</string>
-    <string name="next_cd">Next</string>
     <string name="advertisement_cd">Advertisement</string>
     <string name="play_cd">Play button</string>
     <string name="fast_forward_cd">Fast Forward</string>
@@ -42,9 +47,4 @@
     <string name="add_to_favorite_cd">Add to favorite</string>
     <string name="download_cd">Download</string>
     <string name="no_internet_connection_cd">No Internet Connection</string>
-    <string name="done_cd">Done</string>
-    <string name="language_cd">Language</string>
-    <string name="favorite_cd">Favorite</string>
-    <string name="offline_cd">Offline</string>
-    <string name="settings_cd">Settings</string>
 </resources>
