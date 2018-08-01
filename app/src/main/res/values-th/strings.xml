@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">ภาษา</string>
+    <string name="language_cd">ภาษา</string>
+    <string name="done_cd">เสร็จสิ้น</string>
+    <string name="done">เสร็จสิ้น</string>
+    <string name="next">ต่อไป</string>
+    <string name="next_cd">ต่อไป</string>
+    <string name="favorite">ที่ชื่นชอบ</string>
+    <string name="favorite_cd">ที่ชื่นชอบ</string>
+    <string name="offline">ออฟไลน์</string>
+    <string name="offline_cd">ออฟไลน์</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="settings_cd">การตั้งค่า</string>
+    <string name="download_failed">ดาวน์โหลดเรียบร้อยแล้ว</string>
+    <string name="no_internet_message">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
+    <string name="restart_for_changes_message">โปรดเริ่มแอปใหม่เพื่อดูการเปลี่ยนแปลง</string>
+    <string name="no_items">ไม่มีรายการ</string>
+    <string name="download_started">เริ่มดาวน์โหลด</string>
+    <string name="no_items_cd">ไม่มีรายการตัวบ่งชี้</string>
+    <string name="advertisement_cd">การโฆษณา</string>
+    <string name="fast_forward_cd">กรอเดินหน้าอย่างรวดเร็ว</string>
+    <string name="rewind_cd">ม้วนกลับ</string>
+    <string name="media_progress_indicator_cd">ตัวบ่งชี้ความคืบหน้าที่มีเดีย</string>
+    <string name="duration_cd">ระยะเวลารวม</string>
+    <string name="add_to_favorite_cd">เพิ่มในรายการโปรด</string>
+    <string name="download_cd">ดาวน์โหลด</string>
+    <string name="no_internet_connection_cd">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="play_cd">Play</string>
+    <string name="play_time_cd">เวลาเล่นปัจจุบัน</string>
+    <string name="app_name">คัมภีร์กุรอาน</string>
+</resources>

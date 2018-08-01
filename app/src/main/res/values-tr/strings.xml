@@ -21,12 +21,12 @@
     <string name="advertisement_cd">reklâm</string>
     <string name="fast_forward_cd">Hızlı ileri</string>
     <string name="rewind_cd">Geri sarma</string>
-    <string name="media_progress_indicator_cd">Medya İlerleme Göstergesi</string>
+    <string name="media_progress_indicator_cd">İlerleme Çubuğu</string>
     <string name="duration_cd">Toplam Süre</string>
-    <string name="add_to_favorite_cd">Favorilere ekle</string>
+    <string name="add_to_favorite_cd">Sevdiklerime Ekle</string>
     <string name="download_cd">İndir</string>
     <string name="no_internet_connection_cd">İnternet bağlantısı yok</string>
     <string name="play_cd">Oynatma düğmesi</string>
     <string name="play_time_cd">Geçerli Çalma Süresi</string>
-    <string name="app_name">Kuran Oyuncu</string>
+    <string name="app_name">Kuran Uygulaması</string>
 </resources>
