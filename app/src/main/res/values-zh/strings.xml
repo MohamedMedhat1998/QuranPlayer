@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">语言</string>
+    <string name="language_cd">语言</string>
+    <string name="done_cd">完成</string>
+    <string name="done">完成</string>
+    <string name="next">下一个</string>
+    <string name="next_cd">下一个</string>
+    <string name="favorite">喜爱</string>
+    <string name="favorite_cd">喜爱</string>
+    <string name="offline">离线</string>
+    <string name="offline_cd">离线</string>
+    <string name="settings">设置</string>
+    <string name="settings_cd">设置</string>
+    <string name="download_failed">已经下载了</string>
+    <string name="no_internet_message">请检查您的Internet连接</string>
+    <string name="restart_for_changes_message">请重新启动应用以查看更改</string>
+    <string name="no_items">没有相关产品</string>
+    <string name="download_started">下载开始</string>
+    <string name="no_items_cd">没有项目指标</string>
+    <string name="advertisement_cd">广告</string>
+    <string name="fast_forward_cd">快进</string>
+    <string name="rewind_cd">倒带</string>
+    <string name="media_progress_indicator_cd">媒体进度指标</string>
+    <string name="duration_cd">总持续时间</string>
+    <string name="add_to_favorite_cd">加入我的最爱</string>
+    <string name="download_cd">下载</string>
+    <string name="no_internet_connection_cd">没有网络连接</string>
+    <string name="play_cd">播放按钮</string>
+    <string name="play_time_cd">当前播放时间</string>
+    <string name="app_name">古兰经</string>
+</resources>

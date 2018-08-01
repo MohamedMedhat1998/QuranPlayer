@@ -6,8 +6,8 @@
     <string name="done">tamam</string>
     <string name="next">Sonraki</string>
     <string name="next_cd">Sonraki</string>
-    <string name="favorite">Favori</string>
-    <string name="favorite_cd">Favori</string>
+    <string name="favorite">Sevdiklerim</string>
+    <string name="favorite_cd">Sevdiklerim</string>
     <string name="offline">Çevrimdışı</string>
     <string name="offline_cd">Çevrimdışı</string>
     <string name="settings">Ayarlar</string>
@@ -15,9 +15,9 @@
     <string name="download_failed">Zaten İndirildi</string>
     <string name="no_internet_message">Lütfen İnternet Bağlantınızı Kontrol Edin</string>
     <string name="restart_for_changes_message">Lütfen değişiklikleri görmek için uygulamayı yeniden başlat</string>
-    <string name="no_items">Ürün Yok</string>
-    <string name="download_started">Başlayın</string>
-    <string name="no_items_cd">Öğe Göstergesi Yok</string>
+    <string name="no_items">boş liste</string>
+    <string name="download_started">İndirmeye Başladı</string>
+    <string name="no_items_cd">boş liste</string>
     <string name="advertisement_cd">reklâm</string>
     <string name="fast_forward_cd">Hızlı ileri</string>
     <string name="rewind_cd">Geri sarma</string>
