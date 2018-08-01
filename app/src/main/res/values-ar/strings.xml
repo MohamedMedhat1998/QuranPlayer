@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="language_label">اللغة</string>
+    <string name="app_name">مشغل القرآن</string>
+    <string name="next">التالي</string>
+    <string name="favorite">المفضلة</string>
+    <string name="offline">بدون انترنت</string>
+    <string name="download_failed">محمل بالفعل</string>
+    <string name="no_internet_message">من فضلك تأكد من وجود اتصال بالانترنت</string>
+    <string name="settings">الاعدادات</string>
+    <string name="done">تم</string>
+    <string name="restart_for_changes_message">من فضلك قم بإعادة تشغيل التطبيق لمشاهدة التغييرات</string>
+    <string name="no_items">لا يوجد عناصر</string>
+    <string name="download_started">بدأ التنزيل</string>
+    <string name="no_items_cd">مؤشر عدم وجود عناصر</string>
+    <string name="next_cd">التالي</string>
+    <string name="advertisement_cd">اعلان</string>
+    <string name="play_cd">زر التشغيل</string>
+    <string name="fast_forward_cd">تقديم</string>
+    <string name="rewind_cd">تأخير</string>
+    <string name="media_progress_indicator_cd">مؤشر تقدم مقطع الصوت</string>
+    <string name="play_time_cd">الوقت اللحظي لمقطع الصوت</string>
+    <string name="duration_cd">طول مقطع الصوت</string>
+    <string name="add_to_favorite_cd">اضافة الى المفضلة</string>
+    <string name="download_cd">تنزيل</string>
+    <string name="no_internet_connection_cd">لا يوجد اتصال بالانترنت</string>
+    <string name="done_cd">تم</string>
+    <string name="language_cd">اللغة</string>
+    <string name="favorite_cd">المفضلة</string>
+    <string name="offline_cd">بدون انترنت</string>
+    <string name="settings_cd">الاعدادات</string>
+</resources>
