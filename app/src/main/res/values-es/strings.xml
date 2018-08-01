@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">Idioma</string>
+    <string name="language_cd">Idioma</string>
+    <string name="done_cd">Hecho</string>
+    <string name="done">Hecho</string>
+    <string name="next">Siguiente</string>
+    <string name="next_cd">Siguiente</string>
+    <string name="favorite">Favorito</string>
+    <string name="favorite_cd">Favorito</string>
+    <string name="offline">Desconectado</string>
+    <string name="offline_cd">Desconectado</string>
+    <string name="settings">Configuraciones</string>
+    <string name="settings_cd">Configuraciones</string>
+    <string name="download_failed">Ya descargado</string>
+    <string name="no_internet_message">Por favor revise su conexion a internet</string>
+    <string name="restart_for_changes_message">Por favor, reinicie la aplicación para ver los cambios</string>
+    <string name="no_items">No hay artículos</string>
+    <string name="download_started">Descargar comenzado</string>
+    <string name="no_items_cd">Indicador sin artículos</string>
+    <string name="advertisement_cd">Anuncio</string>
+    <string name="fast_forward_cd">Avance rápido</string>
+    <string name="rewind_cd">Rebobinar</string>
+    <string name="media_progress_indicator_cd">Indicador de progreso de medios</string>
+    <string name="duration_cd">Duración total</string>
+    <string name="add_to_favorite_cd">Agregar a "Favoritos</string>
+    <string name="download_cd">Descargar</string>
+    <string name="no_internet_connection_cd">Sin conexión a Internet</string>
+    <string name="play_cd">Botón de play</string>
+    <string name="play_time_cd">Tiempo de juego actual</string>
+    <string name="app_name">Corán</string>
+</resources>
