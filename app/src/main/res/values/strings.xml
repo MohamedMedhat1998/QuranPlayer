@@ -18,7 +18,6 @@
     <string name="toolbar_title_transition">tool_bar_title_transition</string>
     <string name="toolbar_subtitle_transition">toolbar_subtitle_transition</string>
 
-    <string name="app_name">Quran Player</string>
     <string name="language_label">Language</string>
     <string name="language_cd">Language</string>
     <string name="done_cd">Done</string>
@@ -38,13 +37,14 @@
     <string name="download_started">Download Started</string>
     <string name="no_items_cd">No Items Indicator</string>
     <string name="advertisement_cd">Advertisement</string>
-    <string name="play_cd">Play button</string>
     <string name="fast_forward_cd">Fast Forward</string>
     <string name="rewind_cd">Rewind</string>
     <string name="media_progress_indicator_cd">Media Progress Indicator</string>
-    <string name="play_time_cd">Current Play Time</string>
     <string name="duration_cd">Total Duration</string>
     <string name="add_to_favorite_cd">Add to favorite</string>
     <string name="download_cd">Download</string>
     <string name="no_internet_connection_cd">No Internet Connection</string>
+    <string name="play_cd">Play button</string>
+    <string name="play_time_cd">Current Play Time</string>
+    <string name="app_name">Quran Player</string>
 </resources>

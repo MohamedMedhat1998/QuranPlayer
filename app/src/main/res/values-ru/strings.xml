@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">язык</string>
+    <string name="language_cd">язык</string>
+    <string name="done_cd">сделанный</string>
+    <string name="done">сделанный</string>
+    <string name="next">следующий</string>
+    <string name="next_cd">следующий</string>
+    <string name="favorite">любимец</string>
+    <string name="favorite_cd">любимец</string>
+    <string name="offline">Не в сети</string>
+    <string name="offline_cd">Не в сети</string>
+    <string name="settings">настройки</string>
+    <string name="settings_cd">настройки</string>
+    <string name="download_failed">Уже загружено</string>
+    <string name="no_internet_message">Пожалуйста, проверьте подключение к интернету</string>
+    <string name="restart_for_changes_message">Перезагрузите приложение, чтобы увидеть изменения</string>
+    <string name="no_items">Нет товаров</string>
+    <string name="download_started">Загрузить начато</string>
+    <string name="no_items_cd">Индикатор отсутствия товаров</string>
+    <string name="advertisement_cd">Реклама</string>
+    <string name="fast_forward_cd">Перемотка вперед</string>
+    <string name="rewind_cd">перемотка</string>
+    <string name="media_progress_indicator_cd">Индикатор прогресса СМИ</string>
+    <string name="duration_cd">Общая продолжительность</string>
+    <string name="add_to_favorite_cd">Добавьте в избранное</string>
+    <string name="download_cd">Скачать</string>
+    <string name="no_internet_connection_cd">Нет соединения с интернетом</string>
+    <string name="play_cd">Кнопка воспроизведения</string>
+    <string name="play_time_cd">текущее время воспроизведения</string>
+    <string name="app_name">Коран</string>
+</resources>
