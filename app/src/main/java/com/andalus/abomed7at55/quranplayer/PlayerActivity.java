@@ -121,7 +121,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private void setFavoriteSuraArguments() {
         String tag = getIntent().getExtras().getString(TAG);
         switch (tag) {
-            case PlayerActivity.TAG_FROM_SURA_LIST:
+            case TAG_FROM_SURA_LIST:
                 suraId = targetSura.getId();
                 suraName = targetSura.getName();
                 streamingServer = targetSura.getServer();
@@ -129,7 +129,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 sheekhName = getIntent().getExtras().getString(Sheekh.SHEEKH_NAME_KEY);
                 rewaya = getIntent().getExtras().getString(Sheekh.REWAYA_KEY);
                 break;
-            case PlayerActivity.TAG_FROM_FAVORITE_LIST:
+            case TAG_FROM_FAVORITE_LIST:
                 Bundle favoriteBundle = getIntent().getExtras();
                 suraId = favoriteBundle.getInt(FavoriteSura.FAVORITE_SURA_ID);
                 suraName = favoriteBundle.getString(FavoriteSura.FAVORITE_SURA_NAME);
@@ -138,7 +138,7 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
                 sheekhName = favoriteBundle.getString(FavoriteSura.FAVORITE_SHEEKH_NAME);
                 rewaya = favoriteBundle.getString(FavoriteSura.FAVORITE_REWAYA);
                 break;
-            case PlayerActivity.TAG_FROM_OFFLINE_LIST:
+            case TAG_FROM_OFFLINE_LIST:
                 Bundle offlineBundle = getIntent().getExtras();
                 suraId = offlineBundle.getInt(OfflineSura.OFFLINE_SURA_ID);
                 suraName = offlineBundle.getString(OfflineSura.OFFLINE_SURA_NAME);
@@ -159,13 +159,13 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         Intent i = new Intent(PlayerActivity.this, PlayerService.class);
         i.putExtra(Sura.STREAMING_SERVER_KEY, streamingServer);
         try {
-            if(isOnline()){
+            if(!isOnline() && !getIntent().getExtras().getString(TAG).equals(TAG_FROM_OFFLINE_LIST)){
+                tvPlayerNoInternet.setVisibility(View.VISIBLE);
+            }else{
                 bindService(i, mServiceConnection, Context.BIND_AUTO_CREATE);
                 if(mPlayerService == null){
                     pbPlayerIndicator.setVisibility(View.VISIBLE);
                 }
-            }else{
-                tvPlayerNoInternet.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
