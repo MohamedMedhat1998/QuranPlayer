@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">Jezik</string>
+    <string name="language_cd">Jezik</string>
+    <string name="done_cd">Gotovo</string>
+    <string name="done">Gotovo</string>
+    <string name="next">Sledeće</string>
+    <string name="next_cd">Sledeće</string>
+    <string name="favorite">Favorit</string>
+    <string name="favorite_cd">Favorit</string>
+    <string name="offline">Offline</string>
+    <string name="offline_cd">Offline</string>
+    <string name="settings">Postavke</string>
+    <string name="settings_cd">Postavke</string>
+    <string name="download_failed">Već je preuzeta</string>
+    <string name="no_internet_message">Proverite vašu Internet vezu</string>
+    <string name="restart_for_changes_message">Ponovo pokrenite aplikaciju da biste videli promene</string>
+    <string name="no_items">Nema stavki</string>
+    <string name="download_started">Download Started</string>
+    <string name="no_items_cd">Nema indikatora stavki</string>
+    <string name="advertisement_cd">Advertisement</string>
+    <string name="fast_forward_cd">Brzo naprijed</string>
+    <string name="rewind_cd">Rewind</string>
+    <string name="media_progress_indicator_cd">Indikator napretka medija</string>
+    <string name="duration_cd">Ukupno trajanje</string>
+    <string name="add_to_favorite_cd">Dodajte u favorit</string>
+    <string name="download_cd">Skinuti</string>
+    <string name="no_internet_connection_cd">Nema Internet veze</string>
+    <string name="play_cd">Dugme za reprodukciju</string>
+    <string name="play_time_cd">Trenutno vreme reprodukcije</string>
+    <string name="app_name">Quran</string>
+</resources>

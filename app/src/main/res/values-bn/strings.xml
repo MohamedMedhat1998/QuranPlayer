@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">ভাষা</string>
+    <string name="language_cd">ভাষা</string>
+    <string name="done_cd">সম্পন্ন</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="next">পরবর্তী</string>
+    <string name="next_cd">পরবর্তী</string>
+    <string name="favorite">প্রিয়</string>
+    <string name="favorite_cd">প্রিয়</string>
+    <string name="offline">অফলাইন</string>
+    <string name="offline_cd">অফলাইন</string>
+    <string name="settings">সেটিংস</string>
+    <string name="settings_cd">সেটিংস</string>
+    <string name="download_failed">ইতোমধ্যে ডাউনলোড হয়েছে</string>
+    <string name="no_internet_message">আপনার ইন্টারনেট সংযোগ চেক করুন</string>
+    <string name="restart_for_changes_message">পরিবর্তনগুলি দেখতে অ্যাপ্লিকেশনটি পুনরায় চালু করুন</string>
+    <string name="no_items">কোন আইটেম নয়</string>
+    <string name="download_started">ডাউনলোড শুরু</string>
+    <string name="no_items_cd">কোন আইটেম ইনডিকেটর</string>
+    <string name="advertisement_cd">বিজ্ঞাপন</string>
+    <string name="fast_forward_cd">দ্রুত অগ্রগামী</string>
+    <string name="rewind_cd">ফিরে দেখা</string>
+    <string name="media_progress_indicator_cd">মিডিয়া অগ্রগতি নির্দেশক</string>
+    <string name="duration_cd">মোট সময়কাল</string>
+    <string name="add_to_favorite_cd">পছন্দের লিস্ট এ যোগ করুন</string>
+    <string name="download_cd">ডাউনলোড</string>
+    <string name="no_internet_connection_cd">ইন্টারনেট সংযোগ নেই</string>
+    <string name="play_cd">প্লে বোতাম</string>
+    <string name="play_time_cd">বর্তমান খেলা সময়</string>
+    <string name="app_name">কুরআন</string>
+</resources>
