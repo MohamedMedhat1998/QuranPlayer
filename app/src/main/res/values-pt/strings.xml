@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_label">Língua</string>
+    <string name="language_cd">Língua</string>
+    <string name="done_cd">Feito</string>
+    <string name="done">Feito</string>
+    <string name="next">Próximo</string>
+    <string name="next_cd">Próximo</string>
+    <string name="favorite">Favorito</string>
+    <string name="favorite_cd">Favorito</string>
+    <string name="offline">desligada</string>
+    <string name="offline_cd">desligada</string>
+    <string name="settings">Configurações</string>
+    <string name="settings_cd">Configurações</string>
+    <string name="download_failed">Já baixado</string>
+    <string name="no_internet_message">Por favor, verifique sua conexão à internet</string>
+    <string name="restart_for_changes_message">Por favor, reinicie o aplicativo para ver as alterações</string>
+    <string name="no_items">Sem itens</string>
+    <string name="download_started">Download iniciado</string>
+    <string name="no_items_cd">Nenhum indicador de itens</string>
+    <string name="advertisement_cd">Propaganda</string>
+    <string name="fast_forward_cd">Avanço Rápido</string>
+    <string name="rewind_cd">Rebobinar</string>
+    <string name="media_progress_indicator_cd">Indicador de progresso de mídia</string>
+    <string name="duration_cd">Duração total</string>
+    <string name="add_to_favorite_cd">Adicionar aos favoritos</string>
+    <string name="download_cd">Baixar</string>
+    <string name="no_internet_connection_cd">Nenhuma conexão com a Internet</string>
+    <string name="play_cd">Botão Play</string>
+    <string name="play_time_cd">Tempo de reprodução atual</string>
+    <string name="app_name">Alcorão</string>
+</resources>
