@@ -38,23 +38,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<FavoriteSura>>,OnFavoriteSuraClickListener {
-
-    private static final int LOADER_ID = 45;
-    private static final String FAVORITE_SURA_LIST_KEY = "fav_su_li_k";
-    public static final String FAVORITE_ID = "fav_id";
+public class FavoriteActivity extends AppCompatActivity implements OnFavoriteSuraClickListener {
 
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
     @BindView(R.id.tv_no_items_favorite_activity)
     TextView tvNoItemsFavoriteActivity;
 
-    private List<FavoriteSura> mData;
     private FavoriteListAdapter mAdapter;
 
     private FavoriteSuraViewModel viewModel;
-
-    private MyDatabase mMyDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,29 +69,13 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
             @Override
             public void onChanged(@Nullable List<FavoriteSura> favoriteSuras) {
                 mAdapter.updateData(favoriteSuras);
+                if(mAdapter.getItemCount() == 0){
+                    tvNoItemsFavoriteActivity.setVisibility(View.VISIBLE);
+                }else{
+                    tvNoItemsFavoriteActivity.setVisibility(View.INVISIBLE);
+                }
             }
         });
-    }
-
-    @NonNull
-    @Override
-    public Loader<ArrayList<FavoriteSura>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new DatabaseQueryingLoader<FavoriteSura>(getBaseContext(),DatabaseQueryingLoader.TAG_QUERY_FAVORITE);
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<FavoriteSura>> loader, ArrayList<FavoriteSura> data) {
-        mData = data;
-        rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rvFavoriteList.setAdapter(new FavoriteListAdapter(mData,this));
-        if(mData.isEmpty()){
-            tvNoItemsFavoriteActivity.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<FavoriteSura>> loader) {
-
     }
 
 

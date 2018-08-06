@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {FavoriteSura.class,OfflineSura.class},version = 2)
+@Database(entities = {FavoriteSura.class,OfflineSura.class},version = 2, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
 
     private static MyDatabase mMyDatabase;

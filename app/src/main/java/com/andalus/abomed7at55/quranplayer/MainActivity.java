@@ -4,11 +4,10 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,9 +18,6 @@ import android.widget.RadioGroup;
 import com.andalus.abomed7at55.quranplayer.Fragments.LanguageFragment;
 import com.andalus.abomed7at55.quranplayer.Fragments.SheekhListFragment;
 import com.andalus.abomed7at55.quranplayer.Widget.PlayerWidget;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
@@ -43,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     //Binding Views
     @BindView(R.id.btn_next_language)
     Button btnNextLanguage;
-    @BindView(R.id.adView)
-    AdView mAdView;
 
     private LanguageFragment mLanguageFragment;
     private SheekhListFragment mSheekhListFragment;
@@ -54,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MobileAds.initialize(this, getString(R.string.adKey));
 
         updateWidget();
 
@@ -71,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 mSheekhListFragment = (SheekhListFragment) getSupportFragmentManager().getFragment(savedInstanceState,SHEEKH_LIST_FRAGMENT_KEY);
             }
             hideNextButton();
-            showBannerAd();
         }
 
     }
@@ -143,24 +135,15 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_next_language)
     void onNextButtonClicked(){
         runPreferenceLanguageProcess();
-        //TODO uncomment this before submitting
         modifyRunCount();
         clearFragmentContainer();
         loadSheekhListFragment();
         hideNextButton();
-        showBannerAd();
     }
 
     private void hideNextButton(){
         btnNextLanguage.setVisibility(View.GONE);
     }
-
-    private void showBannerAd(){
-        mAdView.setVisibility(View.VISIBLE);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
