@@ -1,6 +1,7 @@
 package com.andalus.abomed7at55.quranplayer;
 
 import android.appwidget.AppWidgetManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
+import com.andalus.abomed7at55.quranplayer.Data.FavoriteSuraViewModel;
 import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnAudioCompletionListener;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnPreparationFinishedListener;
@@ -74,6 +75,8 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
     private String streamingServer;
     private String rewaya;
 
+    private FavoriteSuraViewModel mFavoriteSuraViewModel;
+
     @BindView(R.id.btn_play)
     ImageButton btnPlay;
     @BindView(R.id.btn_forward)
@@ -116,6 +119,8 @@ public class PlayerActivity extends AppCompatActivity implements OnAudioCompleti
         mSeekBar.setOnSeekBarChangeListener(this);
         setFavoriteSuraArguments();
         getSupportLoaderManager().initLoader(IS_FAVORITE_LOADER_ID, null, this).forceLoad();
+
+        mFavoriteSuraViewModel = ViewModelProviders.of(this).get(FavoriteSuraViewModel.class);
     }
 
     private void setFavoriteSuraArguments() {

@@ -34,19 +34,10 @@ public class DatabaseQueryingLoader<T>
     @Override
     public ArrayList<T> loadInBackground() {
         ArrayList<T> dataArrayList = null;
-        switch (mQueryTag){
-            case TAG_QUERY_FAVORITE:
-                dataArrayList = setUpFavoriteArrayList();
-                break;
-            case TAG_QUERY_OFFLINE:
-                dataArrayList = setUpOfflineArrayList();
-                break;
+        if(mQueryTag.equals(TAG_QUERY_OFFLINE)){
+            dataArrayList = setUpOfflineArrayList();
         }
         return dataArrayList;
-    }
-
-    private ArrayList<T> setUpFavoriteArrayList(){
-        return (ArrayList<T>) database.favoriteSuraDao().getAll();
     }
 
     private ArrayList<T> setUpOfflineArrayList(){

@@ -1,6 +1,5 @@
 package com.andalus.abomed7at55.quranplayer.Loaders;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,7 +37,7 @@ public class DatabaseModificationLoader
     public Boolean loadInBackground() {
         Log.d("Loader", "LoadInBackGround");
         boolean isFavoriteNow;
-        MyDatabase myDatabase = Room.databaseBuilder(getContext(), MyDatabase.class, MyDatabase.DATABASE_NAME).build();
+        MyDatabase myDatabase = MyDatabase.getDatabaseStaticInstance(getContext());
         int id = Integer.parseInt(mFavoriteSura.getSuraId()) * 1000 + Integer.parseInt(mFavoriteSura.getSheekhId());
         if (myDatabase.favoriteSuraDao().getById(id + "") == null) {
             myDatabase.favoriteSuraDao().insertAll(mFavoriteSura);

@@ -1,5 +1,6 @@
 package com.andalus.abomed7at55.quranplayer.Data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -10,7 +11,7 @@ import java.util.List;
 @Dao
 public interface FavoriteSuraDao {
     @Query("SELECT * FROM favoritesura")
-    List<FavoriteSura> getAll();
+    LiveData<List<FavoriteSura>> getAll();
 
     @Query("SELECT * FROM favoritesura WHERE uniqueId LIKE :id")
     FavoriteSura getById(String id);
@@ -20,4 +21,7 @@ public interface FavoriteSuraDao {
 
     @Query("DELETE FROM favoritesura WHERE uniqueId LIKE :id")
     void deleteById(int id);
+
+    @Delete
+    void deleteFromFavorite(FavoriteSura favoriteSura);
 }

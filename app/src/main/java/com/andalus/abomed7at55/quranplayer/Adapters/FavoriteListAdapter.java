@@ -11,17 +11,17 @@ import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnFavoriteSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.FavoriteIemViewHolder>{
 
-    private ArrayList<FavoriteSura> mData;
+    private List<FavoriteSura> mData;
     private OnFavoriteSuraClickListener mOnFavoriteSuraClickListener;
 
-    public FavoriteListAdapter(ArrayList<FavoriteSura> data,OnFavoriteSuraClickListener onFavoriteSuraClickListener){
+    public FavoriteListAdapter(List<FavoriteSura> data,OnFavoriteSuraClickListener onFavoriteSuraClickListener){
         mOnFavoriteSuraClickListener = onFavoriteSuraClickListener;
         mData = data;
     }
@@ -49,6 +49,11 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void updateData(List<FavoriteSura> data){
+        mData = data;
+        notifyDataSetChanged();
     }
 
     class FavoriteIemViewHolder extends RecyclerView.ViewHolder{

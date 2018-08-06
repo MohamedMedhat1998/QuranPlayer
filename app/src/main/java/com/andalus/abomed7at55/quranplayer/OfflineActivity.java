@@ -46,6 +46,8 @@ public class OfflineActivity extends AppCompatActivity implements LoaderManager.
         getSupportActionBar().setTitle(getString(R.string.offline));
 
         ButterKnife.bind(this);
+
+
         if(savedInstanceState==null){
             getSupportLoaderManager().initLoader(LOADER_ID,null,this).forceLoad();
         }else{

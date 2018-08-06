@@ -11,17 +11,17 @@ import com.andalus.abomed7at55.quranplayer.Data.OfflineSura;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnOfflineSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OfflineListAdapter extends RecyclerView.Adapter<OfflineListAdapter.OfflineItemHolder>{
 
-    private ArrayList<OfflineSura> mData;
+    private List<OfflineSura> mData;
     private OnOfflineSuraClickListener mOnOfflineSuraClickListener;
 
-    public OfflineListAdapter(ArrayList<OfflineSura> data,OnOfflineSuraClickListener onOfflineSuraClickListener){
+    public OfflineListAdapter(List<OfflineSura> data,OnOfflineSuraClickListener onOfflineSuraClickListener){
         mData = data;
         mOnOfflineSuraClickListener = onOfflineSuraClickListener;
     }

@@ -1,5 +1,8 @@
 package com.andalus.abomed7at55.quranplayer;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
@@ -15,12 +18,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.andalus.abomed7at55.quranplayer.Adapters.FavoriteListAdapter;
 import com.andalus.abomed7at55.quranplayer.Data.FavoriteSura;
+import com.andalus.abomed7at55.quranplayer.Data.FavoriteSuraViewModel;
 import com.andalus.abomed7at55.quranplayer.Data.MyDatabase;
 import com.andalus.abomed7at55.quranplayer.Interfaces.OnFavoriteSuraClickListener;
 import com.andalus.abomed7at55.quranplayer.Loaders.DatabaseQueryingLoader;
@@ -28,6 +33,7 @@ import com.andalus.abomed7at55.quranplayer.Objects.Sheekh;
 import com.andalus.abomed7at55.quranplayer.Objects.Sura;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,13 +42,19 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
     private static final int LOADER_ID = 45;
     private static final String FAVORITE_SURA_LIST_KEY = "fav_su_li_k";
+    public static final String FAVORITE_ID = "fav_id";
 
     @BindView(R.id.rv_favorite_list)
     RecyclerView rvFavoriteList;
     @BindView(R.id.tv_no_items_favorite_activity)
     TextView tvNoItemsFavoriteActivity;
 
-    private ArrayList<FavoriteSura> mData;
+    private List<FavoriteSura> mData;
+    private FavoriteListAdapter mAdapter;
+
+    private FavoriteSuraViewModel viewModel;
+
+    private MyDatabase mMyDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +66,18 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
         ButterKnife.bind(this);
 
-        if(savedInstanceState==null){
-            getSupportLoaderManager().initLoader(LOADER_ID,null,this);
-        }else{
-            mData = savedInstanceState.getParcelableArrayList(FAVORITE_SURA_LIST_KEY);
-            rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            rvFavoriteList.setAdapter(new FavoriteListAdapter(mData,this));
-        }
+        mAdapter = new FavoriteListAdapter(new ArrayList<FavoriteSura>(),this);
+        rvFavoriteList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rvFavoriteList.setAdapter(mAdapter);
+
+        viewModel = ViewModelProviders.of(this).get(FavoriteSuraViewModel.class);
+
+        viewModel.getFavoriteSuraData().observe(this, new Observer<List<FavoriteSura>>() {
+            @Override
+            public void onChanged(@Nullable List<FavoriteSura> favoriteSuras) {
+                mAdapter.updateData(favoriteSuras);
+            }
+        });
     }
 
     @NonNull
@@ -96,12 +113,6 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         i.putExtra(FavoriteSura.FAVORITE_REWAYA,rewaya);
         i.putExtra(PlayerActivity.TAG,PlayerActivity.TAG_FROM_FAVORITE_LIST);
         startActivity(i);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(FAVORITE_SURA_LIST_KEY,mData);
     }
 
     @Override
