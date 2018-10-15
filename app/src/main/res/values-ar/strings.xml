@@ -30,4 +30,6 @@
     <string name="favorite_cd">المفضلة</string>
     <string name="offline_cd">بدون انترنت</string>
     <string name="settings_cd">الاعدادات</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+
 </resources>

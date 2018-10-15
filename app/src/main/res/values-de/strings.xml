@@ -29,4 +29,6 @@
     <string name="play_cd">Wiedergabetaste</string>
     <string name="play_time_cd">Aktuelle Spielzeit</string>
     <string name="app_name">Koran</string>
+    <string name="privacy_policy">Datenschutz-Bestimmungen</string>
+
 </resources>

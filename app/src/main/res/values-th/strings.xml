@@ -29,4 +29,6 @@
     <string name="play_cd">Play</string>
     <string name="play_time_cd">เวลาเล่นปัจจุบัน</string>
     <string name="app_name">คัมภีร์กุรอาน</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+
 </resources>

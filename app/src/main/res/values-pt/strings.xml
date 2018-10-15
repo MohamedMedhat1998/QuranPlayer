@@ -29,4 +29,6 @@
     <string name="play_cd">Botão Play</string>
     <string name="play_time_cd">Tempo de reprodução atual</string>
     <string name="app_name">Alcorão</string>
+    <string name="privacy_policy">política de Privacidade</string>
+
 </resources>

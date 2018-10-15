@@ -29,4 +29,6 @@
     <string name="play_cd">播放按钮</string>
     <string name="play_time_cd">当前播放时间</string>
     <string name="app_name">古兰经</string>
+    <string name="privacy_policy">隱私政策</string>
+
 </resources>

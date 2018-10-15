@@ -29,4 +29,6 @@
     <string name="play_cd">Botón de play</string>
     <string name="play_time_cd">Tiempo de juego actual</string>
     <string name="app_name">Corán</string>
+    <string name="privacy_policy">política de privacidad</string>
+
 </resources>

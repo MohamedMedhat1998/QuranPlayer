@@ -46,4 +46,7 @@
     <string name="play_cd">Play button</string>
     <string name="play_time_cd">Current Play Time</string>
     <string name="app_name">Quran Player</string>
+    <string name="privacy_policy">Privacy Policy</string>
+
+    <string name="privacy_policy_link">https://free4egyptian.wixsite.com/andalus/quran-player-privacy-policy</string>
 </resources>

@@ -29,4 +29,6 @@
     <string name="play_cd">Кнопка воспроизведения</string>
     <string name="play_time_cd">текущее время воспроизведения</string>
     <string name="app_name">Коран</string>
+    <string name="privacy_policy">политика конфиденциальности</string>
+
 </resources>

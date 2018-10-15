@@ -13,4 +13,8 @@
         android:contentDescription="@string/settings_cd"
         android:id="@+id/item_settings"
         app:showAsAction="never"/>
+    <item android:title="@string/privacy_policy"
+        android:contentDescription="@string/privacy_policy"
+        android:id="@+id/item_privacy_policy"
+        app:showAsAction="never" />
 </menu>

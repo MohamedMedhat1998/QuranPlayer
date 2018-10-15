@@ -29,4 +29,6 @@
     <string name="play_cd">Dugme za reprodukciju</string>
     <string name="play_time_cd">Trenutno vreme reprodukcije</string>
     <string name="app_name">Quran</string>
+    <string name="privacy_policy">politika privatnosti</string>
+
 </resources>

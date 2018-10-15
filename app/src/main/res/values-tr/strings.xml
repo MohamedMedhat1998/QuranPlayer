@@ -29,4 +29,6 @@
     <string name="play_cd">Oynatma düğmesi</string>
     <string name="play_time_cd">Geçerli Çalma Süresi</string>
     <string name="app_name">Kuran Uygulaması</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+
 </resources>
